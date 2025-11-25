@@ -1,4 +1,9 @@
 package com.app.footballapispring.domain.standings;
 
-public class StandingsFetcher {
+import java.io.IOException;
+import java.util.List;
+
+public interface StandingsFetcher {
+    List<Standing> fetchStandings(int league, int season);
 }
+

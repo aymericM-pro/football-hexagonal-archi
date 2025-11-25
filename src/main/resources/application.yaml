@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: ${SPRING_APPLICATION_NAME:footballApiSpring}
+
+football:
+  api:
+    key: ${FOOTBALL_API_KEY}
+    base-url: ${FOOTBALL_API_BASE_URL}
+
+server:
+  servlet:
+    context-path: /api/v1

@@ -1,4 +1,16 @@
 package com.app.footballapispring.application.rest.teams;
 
-public class TeamDetailDTO {
-}
+public record TeamDetailDTO(
+        int id,
+        String name,
+        String country,
+        int founded,
+        String logo,
+        String stadiumName,
+        String stadiumCity,
+        int stadiumCapacity,
+        String stadiumImage,
+        String coachName,
+        String coachNationality,
+        String coachPhoto
+) {}

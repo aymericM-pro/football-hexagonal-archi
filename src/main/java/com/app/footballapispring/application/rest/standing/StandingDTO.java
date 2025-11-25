@@ -1,4 +1,4 @@
-package com.app.footballapispring.application.rest;
+package com.app.footballapispring.application.rest.standing;
 
 public record StandingDTO(
         int rank,

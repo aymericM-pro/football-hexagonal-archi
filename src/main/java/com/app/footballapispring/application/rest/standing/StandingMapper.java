@@ -1,4 +1,4 @@
-package com.app.footballapispring.application.rest;
+package com.app.footballapispring.application.rest.standing;
 
 import com.app.footballapispring.domain.standings.Standing;
 

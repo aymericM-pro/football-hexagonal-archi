@@ -1,0 +1,4 @@
+football:
+  api:
+    key: dummy-key-for-tests
+    base-url: https://example.com

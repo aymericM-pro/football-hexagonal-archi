@@ -1,4 +1,4 @@
-package com.app.footballapispring.infrastructure.footballapi;
+package com.app.footballapispring.infrastructure.footballapi.fixture;
 
 import com.app.footballapispring.OkHttp3Helper;
 import com.app.footballapispring.domain.fixtures.Fixture;
@@ -6,6 +6,7 @@ import com.app.footballapispring.domain.fixtures.FixtureFetcher;
 import org.springframework.stereotype.Component;
 import tools.jackson.databind.JsonNode;
 
+import java.io.IOException;
 import java.util.List;
 
 import java.util.Map;

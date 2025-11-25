@@ -1,4 +1,4 @@
 package com.app.footballapispring.core.mediator;
 
-public class Query {
+public interface Query <R> {
 }

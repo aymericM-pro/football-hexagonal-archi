@@ -1,4 +1,20 @@
 package com.app.footballapispring.domain.fixtures;
 
-public class GetFixturesUseCase {
+import com.app.footballapispring.core.mediator.QueryHandler;
+
+import java.io.IOException;
+import java.util.List;
+
+public class GetFixturesUseCase implements QueryHandler<GetFixturesQuery, List<Fixture>> {
+
+    private final FixtureFetcher fetcher;
+
+    public GetFixturesUseCase(FixtureFetcher fetcher) {
+        this.fetcher = fetcher;
+    }
+
+    @Override
+    public List<Fixture> handle(GetFixturesQuery q) {
+        return fetcher.fetchFixtures(q.league(), q.season(), q.day());
+    }
 }

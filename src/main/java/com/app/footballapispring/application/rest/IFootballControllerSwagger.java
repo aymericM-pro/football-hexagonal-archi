@@ -1,7 +1,9 @@
-package com.app.footballapispring;
+package com.app.footballapispring.application.rest;
 
-import com.app.footballapispring.dtos.MatchInfo;
-import com.app.footballapispring.dtos.TeamDetail;
+import com.app.footballapispring.application.rest.fixture.FixtureDTO;
+import com.app.footballapispring.application.rest.player.PlayerDTO;
+import com.app.footballapispring.application.rest.standing.StandingDTO;
+import com.app.footballapispring.application.rest.teams.TeamDetailDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -12,71 +14,86 @@ import java.util.List;
 
 public interface IFootballControllerSwagger {
 
-/*    @Operation(
+    @Operation(
             summary = "Récupère le classement d’un championnat",
-            description = "Permet de récupérer le classement d’une saison pour un championnat (ex : Ligue 1 2023).",
+            description = "Permet de récupérer le classement d’une saison pour un championnat.",
             responses = {
                     @ApiResponse(
                             responseCode = "200",
                             description = "Classement récupéré avec succès",
-                            content = @Content(mediaType = "application/json",
-                                    schema = @Schema(implementation = TeamStanding.class))
-                    ),
-                    @ApiResponse(responseCode = "400", description = "Paramètres invalides"),
-                    @ApiResponse(responseCode = "500", description = "Erreur interne")
+                            content = @Content(
+                                    mediaType = "application/json",
+                                    schema = @Schema(implementation = StandingDTO.class)
+                            )
+                    )
             }
     )
-    List<TeamStanding> getStandings(
-            @Parameter(description = "Championship ID (ex: 61 pour Ligue 1)", example = "61")
-            int league,
+    List<StandingDTO> getStandings(
+            @Parameter(description = "ID du championnat", example = "61") int league,
+            @Parameter(description = "Saison", example = "2023") int season
+    );
 
-            @Parameter(description = "Saison (année de début)", example = "2023")
-            int season
-    );*/
-
-/*
     @Operation(
-            summary = "Récupère les matchs d’une journée",
-            description = "Récupère les matchs pour une journée donnée d’un championnat et d’une saison. Ex : Ligue 1 — Saison 2024 — Journée 1.",
+            summary = "Récupère les joueurs d’une équipe",
+            description = "Retourne la liste complète des joueurs d'un club pour une saison donnée.",
             responses = {
                     @ApiResponse(
                             responseCode = "200",
-                            description = "Liste des matchs récupérée",
-                            content = @Content(mediaType = "application/json",
-                                    schema = @Schema(implementation = MatchInfo.class))
+                            description = "Liste des joueurs récupérée",
+                            content = @Content(
+                                    mediaType = "application/json",
+                                    schema = @Schema(implementation = PlayerDTO.class)
+                            )
                     ),
                     @ApiResponse(responseCode = "400", description = "Paramètres invalides"),
                     @ApiResponse(responseCode = "500", description = "Erreur interne")
             }
     )
-    List<MatchInfo> getMatches(
-            @Parameter(description = "Championship ID (ex: 61 pour Ligue 1)", example = "61")
-            int league,
+    List<PlayerDTO> getPlayers(
+            @Parameter(description = "ID de l'équipe", example = "85")
+            int team,
 
             @Parameter(description = "Saison (année de début)", example = "2024")
             int season,
 
-            @Parameter(description = "Numéro de journée (1-38)", example = "1")
-            int day
+            @Parameter(description = "Numéro de la page pour la pagination API", example = "1")
+            int page
     );
-*/
+
 
     @Operation(
-            summary = "Informations détaillées d'une équipe",
-            description = "Retourne toutes les informations d’un club : nom, pays, année de fondation, stade, ville, capacité, logo…",
+            summary = "Récupère les matchs d’une journée",
+            description = "Retourne les matchs d'une journée pour un championnat.",
             responses = {
                     @ApiResponse(
                             responseCode = "200",
-                            description = "Informations d'équipe récupérées",
-                            content = @Content(mediaType = "application/json",
-                                    schema = @Schema(implementation = TeamDetail.class))
-                    ),
-                    @ApiResponse(responseCode = "400", description = "Paramètres invalides"),
-                    @ApiResponse(responseCode = "500", description = "Erreur interne")
+                            content = @Content(
+                                    mediaType = "application/json",
+                                    schema = @Schema(implementation = FixtureDTO.class)
+                            )
+                    )
             }
     )
-    TeamDetail getTeamDetails(
-            @Parameter(description = "ID de l'équipe", example = "85")
-            int id
+    List<FixtureDTO> getMatches(
+            @Parameter(example = "61") int league,
+            @Parameter(example = "2024") int season,
+            @Parameter(example = "1") int day
+    );
+
+    @Operation(
+            summary = "Infos détaillées d'une équipe",
+            description = "Infos club : pays, logo, coach, stade…",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            content = @Content(
+                                    mediaType = "application/json",
+                                    schema = @Schema(implementation = TeamDetailDTO.class)
+                            )
+                    )
+            }
+    )
+    TeamDetailDTO getTeamDetails(
+            @Parameter(example = "85") int id
     );
 }

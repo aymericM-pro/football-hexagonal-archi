@@ -1,4 +1,4 @@
-package com.app.footballapispring.core;
+package com.app.footballapispring.core.error;
 
 public class FootballApiException extends RuntimeException {
 

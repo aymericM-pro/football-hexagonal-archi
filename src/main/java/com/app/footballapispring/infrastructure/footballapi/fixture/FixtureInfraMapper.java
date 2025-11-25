@@ -1,4 +1,4 @@
-package com.app.footballapispring.infrastructure.footballapi;
+package com.app.footballapispring.infrastructure.footballapi.fixture;
 
 import com.app.footballapispring.domain.fixtures.Fixture;
 import tools.jackson.databind.JsonNode;
