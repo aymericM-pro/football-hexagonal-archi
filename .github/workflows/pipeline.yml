@@ -44,6 +44,6 @@ jobs:
       - name: SonarCloud Scan
         run: mvn -B sonar:sonar \
           -Dsonar.projectKey=football-hexagonal-archi \
-          -Dsonar.organization=TON_ORG \
+          -Dsonar.organization=aymericm-pro \
           -Dsonar.host.url=https://sonarcloud.io \
           -Dsonar.token=${{ secrets.SONAR_TOKEN }}
