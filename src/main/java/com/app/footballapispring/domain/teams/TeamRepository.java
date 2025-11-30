@@ -9,5 +9,5 @@ public interface TeamRepository {
     Team save(Team t);
     Optional<Team> findById(String id);
     List<Team> findAll();
-    Team addPlayer(String teamId, Player player);
+    Team addPlayer(Team team, Player player);
 }

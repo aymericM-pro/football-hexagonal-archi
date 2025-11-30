@@ -1,5 +1,6 @@
-package com.app.footballapispring;
+package com.app.footballapispring.teams;
 
+import com.app.footballapispring.IntegrationTests;
 import com.app.footballapispring.application.rest.teams.CreateTeamDTO;
 import com.app.footballapispring.application.rest.teams.TeamDTO;
 import com.app.footballapispring.domain.teams.TeamRepository;
@@ -29,6 +30,7 @@ class CreateTeamE2ETest extends IntegrationTests {
                 .andExpect(status().isOk())
                 .andReturn();
 
+        // ✔ On lit le bon DTO !
         var response = objectMapper.readValue(
                 result.getResponse().getContentAsString(),
                 TeamDTO.class

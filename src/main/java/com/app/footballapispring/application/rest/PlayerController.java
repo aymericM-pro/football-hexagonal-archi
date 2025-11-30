@@ -1,5 +1,6 @@
 package com.app.footballapispring.application.rest;
 
+import com.app.footballapispring.application.rest.player.CreatePlayerDTO;
 import com.app.footballapispring.application.rest.player.PlayerDTO;
 import com.app.footballapispring.application.rest.player.PlayerMapper;
 import com.app.footballapispring.core.mediator.Mediator;
@@ -47,7 +48,7 @@ public class PlayerController {
     // 3) CREATE
     // ------------------------
     @PostMapping
-    public PlayerDTO createPlayer(@RequestBody PlayerDTO dto) {
+    public PlayerDTO createPlayer(@RequestBody CreatePlayerDTO dto) {
         Player p = mediator.send(new CreatePlayerCommand(
                 dto.name(),
                 dto.age(),

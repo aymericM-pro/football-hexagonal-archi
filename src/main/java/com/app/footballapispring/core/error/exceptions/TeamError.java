@@ -8,7 +8,8 @@ public enum TeamError implements BusinessError {
     PLAYER_NOT_FOUND(404, "PLAYER_NOT_FOUND", "Player not found"),
     PLAYER_ALREADY_IN_TEAM(409, "PLAYER_ALREADY_IN_TEAM", "Player is already in this team"),
     TEAM_NAME_REQUIRED(400, "TEAM_NAME_REQUIRED", "Team name is required"),
-    COUNTRY_REQUIRED(400, "COUNTRY_REQUIRED", "Team country is required");
+    COUNTRY_REQUIRED(400, "COUNTRY_REQUIRED", "Team country is required"),
+    TEAM_FULL(400, "TEAM_FULL", "This team already has the maximum number of players");
 
     private final int status;
     private final String code;

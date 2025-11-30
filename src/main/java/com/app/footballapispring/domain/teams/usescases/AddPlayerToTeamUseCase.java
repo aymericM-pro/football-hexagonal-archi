@@ -21,9 +21,17 @@ public class AddPlayerToTeamUseCase implements CommandHandler<AddPlayerToTeamCom
 
     @Override
     public Team handle(AddPlayerToTeamCommand command) {
+
+        Team team = teamRepo.findById(command.teamId())
+                .orElseThrow(() -> new BusinessException(TeamError.TEAM_NOT_FOUND));
+
+        if (team.getPlayers().size() >= 5) {
+            throw new BusinessException(TeamError.TEAM_FULL);
+        }
+
         Player player = playerRepo.findById(command.playerId())
                 .orElseThrow(() -> new BusinessException(TeamError.PLAYER_NOT_FOUND));
 
-        return teamRepo.addPlayer(command.teamId(), player);
-    }
-}
+        // 👉 Appelle une méthode “métiers” sans accès DB
+        return teamRepo.addPlayer(team, player);
+    }}

@@ -4,11 +4,11 @@ on:
   push:
     branches: [ "main" ]
   pull_request:
-    types: [opened, synchronize, reopened]
+    types: [ opened, synchronize, reopened ]
 
 jobs:
   build:
-    name: Build & Analyze
+    name: Build, Test & Analyze
     runs-on: ubuntu-latest
 
     steps:
@@ -38,9 +38,11 @@ jobs:
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
 
+      # 👉 Exécution des tests (JUnit + JaCoCo si configuré)
       - name: Build & Test
         run: mvn -B clean verify
 
+      # 👉 Analyse SonarCloud
       - name: SonarCloud Scan
         run: |
           mvn -B sonar:sonar \

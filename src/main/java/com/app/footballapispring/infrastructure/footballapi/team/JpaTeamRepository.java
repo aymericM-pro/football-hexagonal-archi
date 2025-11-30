@@ -19,12 +19,18 @@ public class JpaTeamRepository implements TeamRepository {
         this.repo = repo;
     }
 
+    @Override
     public Team save(Team t) {
+        // Création pure → jamais de findById ici !
         TeamEntity entity = new TeamEntity();
+
         TeamInfraMapper.mapToEntity(t, entity);
+
         TeamEntity saved = repo.save(entity);
-        return TeamInfraMapper.toDomain(saved);
+
+        return TeamInfraMapper.toDomainWithPlayer(saved);
     }
+
 
     @Override
     public Optional<Team> findById(String id) {
@@ -40,14 +46,14 @@ public class JpaTeamRepository implements TeamRepository {
     }
 
     @Override
-    public Team addPlayer(String teamId, Player p) {
-
-        TeamEntity entity = repo.findByIdWithPlayers(UUID.fromString(teamId))
+    public Team addPlayer(Team domainTeam, Player domainPlayer) {
+        UUID id = UUID.fromString(domainTeam.getId());
+        TeamEntity entity = repo.findByIdWithPlayers(id)
                 .orElseThrow(() -> new RuntimeException("Team not found"));
-
-        PlayerEntity pe = PlayerInfraMapper.toEntity(p);
+        PlayerEntity pe = PlayerInfraMapper.toEntity(domainPlayer);
         entity.addPlayer(pe);
-        return TeamInfraMapper.toDomainWithPlayer(repo.save(entity));
+        TeamEntity saved = repo.save(entity);
+        return TeamInfraMapper.toDomainWithPlayer(saved);
     }
 }
 

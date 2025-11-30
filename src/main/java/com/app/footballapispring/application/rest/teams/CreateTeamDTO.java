@@ -1,6 +1,3 @@
 package com.app.footballapispring.application.rest.teams;
 
-public record CreateTeamDTO(
-        String name,
-        String country
-) {}
+public record CreateTeamDTO(String name, String country) {}
