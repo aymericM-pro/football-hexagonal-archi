@@ -8,8 +8,8 @@ import okhttp3.HttpUrl;
 import org.springframework.stereotype.Component;
 import tools.jackson.databind.JsonNode;
 
-import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.StreamSupport;
 
 @Component
@@ -26,7 +26,7 @@ public class StandingsApiAdapter implements StandingsFetcher {
     @Override
     public List<Standing> fetchStandings(int league, int season) {
 
-        HttpUrl url = HttpUrl.parse(props.standingsUrl()).newBuilder()
+        HttpUrl url = Objects.requireNonNull(HttpUrl.parse(props.standingsUrl())).newBuilder()
                 .addQueryParameter("league", String.valueOf(league))
                 .addQueryParameter("season", String.valueOf(season))
                 .build();

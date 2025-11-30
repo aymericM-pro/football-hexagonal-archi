@@ -1,21 +1,29 @@
 package com.app.footballapispring.infrastructure.footballapi.player;
 
 import com.app.footballapispring.domain.player.Player;
-import tools.jackson.databind.JsonNode;
 
-public class PlayerInfraMapper {
+public final class PlayerInfraMapper {
 
-    public static Player toDomain(JsonNode p) {
+    private PlayerInfraMapper() {}
 
-        JsonNode playerNode = p.path("player");
+    public static PlayerEntity toEntity(Player p) {
+        return new PlayerEntity(
+                p.getName(),
+                p.getAge(),
+                p.getPosition(),
+                p.getNationality(),
+                p.getPhoto()
+        );
+    }
 
+    public static Player toDomain(PlayerEntity e) {
         return new Player(
-                playerNode.path("id").asLong(),
-                playerNode.path("name").asText("Unknown"),
-                playerNode.path("age").asInt(-1),
-                playerNode.path("position").asText("Unknown"),
-                playerNode.path("nationality").asText("Unknown"),
-                playerNode.path("photo").asText("")
+                e.getId().toString(),
+                e.getName(),
+                e.getAge(),
+                e.getPosition(),
+                e.getNationality(),
+                e.getPhoto()
         );
     }
 }

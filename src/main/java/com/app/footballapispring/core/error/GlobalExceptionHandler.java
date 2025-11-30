@@ -29,6 +29,22 @@ public class GlobalExceptionHandler {
                 .body(body);
     }
 
+    @ExceptionHandler(BusinessException.class)
+    public ResponseEntity<?> handleBusiness(BusinessException ex) {
+
+        BusinessError error = ex.getError();
+
+        Map<String, Object> body = Map.of(
+                "status", error.getHttpStatus(),
+                "error", error.getCode(),
+                "message", error.getMessage(),
+                "details", ex.getMessage(),
+                "timestamp", Instant.now().toString()
+        );
+
+        return ResponseEntity.status(error.getHttpStatus()).body(body);
+    }
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<?> handleUnexpected(Exception ex) {
 

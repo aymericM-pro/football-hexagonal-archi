@@ -1,7 +1,17 @@
 spring:
   application:
     name: ${SPRING_APPLICATION_NAME:footballApiSpring}
-
+  datasource:
+    url: jdbc:postgresql://localhost:5432/football
+    username: football
+    password: football
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
 football:
   api:
     key: ${FOOTBALL_API_KEY}
@@ -10,3 +20,17 @@ football:
 server:
   servlet:
     context-path: /api/v1
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+  endpoint:
+    health:
+      show-details: always
+  metrics:
+    tags:
+      application: footballApiSpring
+
+

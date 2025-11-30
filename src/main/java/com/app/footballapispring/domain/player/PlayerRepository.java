@@ -1,0 +1,11 @@
+package com.app.footballapispring.domain.player;
+
+import java.util.List;
+import java.util.Optional;
+
+public interface PlayerRepository {
+    Player save(Player p);
+    Optional<Player> findById(String id);
+    List<Player> findAll();
+    void delete(String id);
+}

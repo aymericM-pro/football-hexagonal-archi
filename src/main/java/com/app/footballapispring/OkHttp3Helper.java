@@ -5,7 +5,6 @@ import okhttp3.HttpUrl;
 import org.springframework.stereotype.Component;
 import tools.jackson.databind.JsonNode;
 
-import java.io.IOException;
 import java.util.Map;
 
 @Component
@@ -20,13 +19,9 @@ public class OkHttp3Helper {
     }
 
     public JsonNode get(String path, Map<String, String> params) {
-
         HttpUrl.Builder url = HttpUrl.parse(props.getBaseUrl() + path).newBuilder();
-
         params.forEach(url::addQueryParameter);
-
         JsonNode root = http.get(url.build().toString(), props.getKey());
-
         return root.path("response");
     }
 }

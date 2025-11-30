@@ -8,7 +8,6 @@ import okhttp3.HttpUrl;
 import org.springframework.stereotype.Component;
 import tools.jackson.databind.JsonNode;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.stream.StreamSupport;
 
@@ -35,7 +34,7 @@ public class PlayerApiAdapter implements PlayerFetcher {
         JsonNode items = http.get(url.toString(), props.getKey()).path("response");
 
         return StreamSupport.stream(items.spliterator(), false)
-                .map(PlayerInfraMapper::toDomain)
+                .map(PlayerInfraFootballMapper::toDomain)
                 .toList();
     }
 }

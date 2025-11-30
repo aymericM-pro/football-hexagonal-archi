@@ -1,7 +1,6 @@
 package com.app.footballapispring.domain.standings;
 
 import com.app.footballapispring.core.mediator.QueryHandler;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 
@@ -14,7 +13,7 @@ public class GetStandingsUseCase implements QueryHandler<GetStandingsQuery, List
     }
 
     @Override
-    public List<Standing> handle(GetStandingsQuery q) {
-        return fetcher.fetchStandings(q.league(), q.season());
+    public List<Standing> handle(GetStandingsQuery query) {
+        return fetcher.fetchStandings(query.league(), query.season());
     }
 }

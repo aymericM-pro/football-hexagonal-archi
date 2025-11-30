@@ -1,0 +1,13 @@
+package com.app.footballapispring.domain.teams;
+
+import com.app.footballapispring.domain.player.Player;
+
+import java.util.List;
+import java.util.Optional;
+
+public interface TeamRepository {
+    Team save(Team t);
+    Optional<Team> findById(String id);
+    List<Team> findAll();
+    Team addPlayer(String teamId, Player player);
+}

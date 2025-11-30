@@ -11,5 +11,4 @@ public class FootballApiSpringApplication {
     public static void main(String[] args) {
         SpringApplication.run(FootballApiSpringApplication.class, args);
     }
-
 }
