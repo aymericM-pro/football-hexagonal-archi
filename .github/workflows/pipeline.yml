@@ -1,4 +1,4 @@
-name: CI - Build, Test & Sonar
+name: CI - Build, Test, Sonar & Docker
 
 on:
   push:
@@ -26,9 +26,13 @@ jobs:
       - name: Build (no tests)
         run: mvn -B -DskipTests clean package
 
-  # -------------------------------------------------------------------
-  # 2) TESTS
-  # -------------------------------------------------------------------
+      - name: Upload jar artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: built-jar
+          path: target/*.jar
+
+
   tests:
     name: Run Tests
     runs-on: ubuntu-latest
@@ -48,7 +52,6 @@ jobs:
       - name: Run tests (JUnit + JaCoCo)
         run: mvn -B test
 
-      # On exporte les rapports de tests pour d’autres jobs
       - name: Upload test reports
         uses: actions/upload-artifact@v4
         with:
@@ -61,9 +64,7 @@ jobs:
           name: jacoco-report
           path: target/site/jacoco
 
-  # -------------------------------------------------------------------
-  # 3) SONARCLOUD ANALYSIS
-  # -------------------------------------------------------------------
+
   sonar:
     name: SonarCloud Analysis
     runs-on: ubuntu-latest
@@ -94,7 +95,6 @@ jobs:
           path: ~/.sonar/cache
           key: ${{ runner.os }}-sonar
 
-      # 🟢 Étape cruciale pour Sonar
       - name: Build project for Sonar (required)
         run: mvn -B clean compile
 
@@ -106,6 +106,7 @@ jobs:
             -Dsonar.host.url=https://sonarcloud.io \
             -Dsonar.token=${{ secrets.SONAR_TOKEN }}
 
+
   docker:
     name: Build & Push Docker Image
     runs-on: ubuntu-latest
@@ -114,6 +115,12 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+
+      - name: Download built jar
+        uses: actions/download-artifact@v4
+        with:
+          name: built-jar
+          path: target/
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
