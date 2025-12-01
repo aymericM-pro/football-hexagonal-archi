@@ -7,7 +7,6 @@ on:
     types: [opened, synchronize, reopened]
 
 jobs:
-
   build:
     name: Build project
     runs-on: ubuntu-latest
@@ -31,7 +30,6 @@ jobs:
         with:
           name: built-jar
           path: target/*.jar
-
 
   tests:
     name: Run Tests
@@ -63,7 +61,6 @@ jobs:
         with:
           name: jacoco-report
           path: target/site/jacoco
-
 
   sonar:
     name: SonarCloud Analysis
@@ -106,7 +103,6 @@ jobs:
             -Dsonar.host.url=https://sonarcloud.io \
             -Dsonar.token=${{ secrets.SONAR_TOKEN }}
 
-
   docker:
     name: Build, Push & Deploy
     runs-on: ubuntu-latest
@@ -141,6 +137,7 @@ jobs:
       - name: Build and Push Docker image
         uses: docker/build-push-action@v5
         with:
+          context: .
           push: true
           tags: |
             ${{ secrets.DOCKERHUB_USERNAME }}/football-api:${{ steps.vars.outputs.VERSION }}
@@ -156,6 +153,6 @@ jobs:
         with:
           service: football-app
           region: europe-west1
-          image: europe-west1-docker.pkg.dev/${{ secrets.GCP_PROJECT }}/REPO/football-api:latest
+          image: docker.io/${{ secrets.DOCKERHUB_USERNAME }}/football-api:latest
         env:
           CLOUDSDK_CORE_PROJECT: ${{ secrets.GCP_PROJECT }}
