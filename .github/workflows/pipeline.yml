@@ -73,9 +73,9 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0   # IMPORTANT pour SonarCloud
+          fetch-depth: 0
 
-      - name: Download test reports
+      - name: Download JaCoCo report
         uses: actions/download-artifact@v4
         with:
           name: jacoco-report
@@ -93,6 +93,10 @@ jobs:
         with:
           path: ~/.sonar/cache
           key: ${{ runner.os }}-sonar
+
+      # 🟢 Étape cruciale pour Sonar
+      - name: Build project for Sonar (required)
+        run: mvn -B clean compile
 
       - name: SonarCloud Scan
         run: |
