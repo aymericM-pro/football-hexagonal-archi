@@ -20,6 +20,7 @@ football:
 server:
   servlet:
     context-path: /api/v1
+  port: ${PORT:8080}
 
 management:
   endpoints:
