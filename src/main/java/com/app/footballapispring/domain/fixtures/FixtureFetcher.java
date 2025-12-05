@@ -1,6 +1,5 @@
 package com.app.footballapispring.domain.fixtures;
 
-import java.io.IOException;
 import java.util.List;
 
 public interface FixtureFetcher {

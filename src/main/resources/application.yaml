@@ -41,3 +41,7 @@ football:
     key: ${FOOTBALL_API_KEY}
     base-url: ${FOOTBALL_API_BASE_URL}
 
+security:
+  jwt:
+    secret: ${JWT_SECRET:dev-secret-key-123456789012345}
+    expiration-ms: 3600000

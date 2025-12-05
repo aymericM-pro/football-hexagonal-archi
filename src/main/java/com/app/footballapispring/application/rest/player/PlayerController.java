@@ -37,6 +37,7 @@ public class PlayerController implements IPlayerControllerSwagger {
     @Override
     @GetMapping("/{id}")
     public ResponseEntity<PlayerDTO> getPlayerById(@PathVariable String id) {
+
         Player p = mediator.send(new GetPlayerByIdQuery(id));
         return ResponseEntity.ok(PlayerMapper.toDto(p));
     }

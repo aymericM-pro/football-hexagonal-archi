@@ -1,5 +1,8 @@
 package com.app.footballapispring.core.error;
 
+import lombok.Getter;
+
+@Getter
 public class FootballApiException extends RuntimeException {
 
     private final FootballApiError error;
@@ -14,7 +17,4 @@ public class FootballApiException extends RuntimeException {
         this.error = error;
     }
 
-    public FootballApiError getError() {
-        return error;
-    }
 }
