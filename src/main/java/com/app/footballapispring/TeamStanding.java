@@ -1,9 +1,9 @@
 package com.app.footballapispring;
 
 public record TeamStanding(
-        int position,       // rang dans le classement
-        int teamId,         // nouvel ID de l'équipe
-        String teamName,    // nom de l'équipe
+        int position,
+        int teamId,
+        String teamName,
         int points,
         int played,
         int wins,

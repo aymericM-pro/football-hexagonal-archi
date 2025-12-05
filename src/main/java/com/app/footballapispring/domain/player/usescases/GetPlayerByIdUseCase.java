@@ -1,5 +1,7 @@
 package com.app.footballapispring.domain.player.usescases;
 
+import com.app.footballapispring.core.error.BusinessException;
+import com.app.footballapispring.core.error.exceptions.PlayerError;
 import com.app.footballapispring.core.mediator.QueryHandler;
 import com.app.footballapispring.domain.player.Player;
 import com.app.footballapispring.domain.player.PlayerRepository;
@@ -16,6 +18,6 @@ public class GetPlayerByIdUseCase implements QueryHandler<GetPlayerByIdQuery, Pl
     @Override
     public Player handle(GetPlayerByIdQuery q) {
         return repo.findById(q.id())
-                .orElseThrow(() -> new RuntimeException("Player not found"));
+                .orElseThrow(() -> new BusinessException(PlayerError.PLAYER_NOT_FOUND));
     }
 }

@@ -30,7 +30,6 @@ class CreateTeamE2ETest extends IntegrationTests {
                 .andExpect(status().isOk())
                 .andReturn();
 
-        // ✔ On lit le bon DTO !
         var response = objectMapper.readValue(
                 result.getResponse().getContentAsString(),
                 TeamDTO.class

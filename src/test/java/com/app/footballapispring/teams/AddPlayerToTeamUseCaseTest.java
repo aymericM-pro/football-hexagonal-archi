@@ -24,24 +24,19 @@ class AddPlayerToTeamUseCaseTest {
     @Test
     void should_add_player_to_team() {
 
-        // GIVEN — l’équipe existe
         Team team = new Team("t1", "PSG", "France");
         when(teamRepo.findById("t1")).thenReturn(Optional.of(team));
 
-        // Le joueur existe
         Player p = new Player("1", "Mbappé", 25, "FW", "France", "photo");
         when(playerRepo.findById("p1")).thenReturn(Optional.of(p));
 
-        // Le repository persiste la team mise à jour
         Team updated = new Team("t1", "PSG", "France");
         updated.getPlayers().add(p);
 
         when(teamRepo.addPlayer(team, p)).thenReturn(updated);
 
-        // WHEN
         Team result = useCase.handle(new AddPlayerToTeamCommand("t1", "p1"));
 
-        // THEN
         assertThat(result.getPlayers()).hasSize(1);
         assertThat(result.getPlayers().getFirst().getName()).isEqualTo("Mbappé");
 

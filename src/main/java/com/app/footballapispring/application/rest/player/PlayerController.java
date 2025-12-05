@@ -1,8 +1,5 @@
-package com.app.footballapispring.application.rest;
+package com.app.footballapispring.application.rest.player;
 
-import com.app.footballapispring.application.rest.player.CreatePlayerDTO;
-import com.app.footballapispring.application.rest.player.PlayerDTO;
-import com.app.footballapispring.application.rest.player.PlayerMapper;
 import com.app.footballapispring.core.mediator.Mediator;
 import com.app.footballapispring.domain.player.Player;
 import com.app.footballapispring.domain.player.command.CreatePlayerCommand;
@@ -10,13 +7,15 @@ import com.app.footballapispring.domain.player.command.DeletePlayerCommand;
 import com.app.footballapispring.domain.player.command.GetAllPlayersQuery;
 import com.app.footballapispring.domain.player.command.GetPlayerByIdQuery;
 import com.app.footballapispring.domain.player.command.UpdatePlayerCommand;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/players")
-public class PlayerController {
+public class PlayerController implements IPlayerControllerSwagger {
 
     private final Mediator mediator;
 
@@ -24,31 +23,28 @@ public class PlayerController {
         this.mediator = mediator;
     }
 
-    // ------------------------
-    // 1) GET ALL
-    // ------------------------
+    @Override
     @GetMapping
-    public List<PlayerDTO> getAllPlayers() {
-        return mediator.send(new GetAllPlayersQuery())
+    public ResponseEntity<List<PlayerDTO>> getAllPlayers() {
+        List<PlayerDTO> result = mediator.send(new GetAllPlayersQuery())
                 .stream()
                 .map(PlayerMapper::toDto)
                 .toList();
+
+        return ResponseEntity.ok(result);
     }
 
-    // ------------------------
-    // 2) GET BY ID
-    // ------------------------
+    @Override
     @GetMapping("/{id}")
-    public PlayerDTO getPlayerById(@PathVariable String id) {
+    public ResponseEntity<PlayerDTO> getPlayerById(@PathVariable String id) {
         Player p = mediator.send(new GetPlayerByIdQuery(id));
-        return PlayerMapper.toDto(p);
+        return ResponseEntity.ok(PlayerMapper.toDto(p));
     }
 
-    // ------------------------
-    // 3) CREATE
-    // ------------------------
+    @Override
     @PostMapping
-    public PlayerDTO createPlayer(@RequestBody CreatePlayerDTO dto) {
+    public ResponseEntity<PlayerDTO> createPlayer(@RequestBody CreatePlayerDTO dto) {
+
         Player p = mediator.send(new CreatePlayerCommand(
                 dto.name(),
                 dto.age(),
@@ -56,14 +52,15 @@ public class PlayerController {
                 dto.nationality(),
                 dto.photo()
         ));
-        return PlayerMapper.toDto(p);
+
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(PlayerMapper.toDto(p));
     }
 
-    // ------------------------
-    // 4) UPDATE
-    // ------------------------
+    @Override
     @PutMapping("/{id}")
-    public PlayerDTO updatePlayer(
+    public ResponseEntity<PlayerDTO> updatePlayer(
             @PathVariable String id,
             @RequestBody PlayerDTO dto
     ) {
@@ -75,14 +72,13 @@ public class PlayerController {
                 dto.nationality(),
                 dto.photo()
         ));
-        return PlayerMapper.toDto(p);
+        return ResponseEntity.ok(PlayerMapper.toDto(p));
     }
 
-    // ------------------------
-    // 5) DELETE
-    // ------------------------
+    @Override
     @DeleteMapping("/{id}")
-    public void deletePlayer(@PathVariable String id) {
+    public ResponseEntity<Void> deletePlayer(@PathVariable String id) {
         mediator.send(new DeletePlayerCommand(id));
+        return ResponseEntity.noContent().build();
     }
 }

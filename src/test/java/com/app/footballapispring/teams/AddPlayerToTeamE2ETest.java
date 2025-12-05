@@ -43,7 +43,6 @@ class AddPlayerToTeamE2ETest extends IntegrationTests {
     @Test
     void shouldAddPlayerToTeam() throws Exception {
 
-        // 1️⃣ Appel E2E du vrai endpoint
         mockMvc.perform(
                         post("/teams/" + team.getId() + "/players/" + player.getId())
                                 .contentType(MediaType.APPLICATION_JSON)
@@ -52,7 +51,6 @@ class AddPlayerToTeamE2ETest extends IntegrationTests {
 
         Team reloaded = teamRepository.findById(team.getId()).orElseThrow();
 
-        // 3️⃣ Vérifications
         assertThat(reloaded.getPlayers()).hasSize(1);
         assertThat(reloaded.getPlayers().getFirst().getName()).isEqualTo("Mbappé");
     }

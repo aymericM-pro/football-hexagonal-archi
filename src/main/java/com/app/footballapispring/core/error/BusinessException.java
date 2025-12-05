@@ -1,5 +1,8 @@
 package com.app.footballapispring.core.error;
 
+import lombok.Getter;
+
+@Getter
 public class BusinessException extends RuntimeException {
 
     private final BusinessError error;
@@ -12,9 +15,5 @@ public class BusinessException extends RuntimeException {
     public BusinessException(BusinessError error, String details) {
         super(error.getMessage() + " – " + details);
         this.error = error;
-    }
-
-    public BusinessError getError() {
-        return error;
     }
 }
