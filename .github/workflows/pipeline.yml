@@ -154,10 +154,17 @@ jobs:
           service: football-app
           region: europe-west1
           image: docker.io/${{ secrets.DOCKERHUB_USERNAME }}/football-api:latest
+          service_account: football-app@your-project.iam.gserviceaccount.com
           env_vars: |
             DB_URL=${{ secrets.DB_URL }}
             DB_USERNAME=${{ secrets.DB_USERNAME }}
             DB_PASSWORD=${{ secrets.DB_PASSWORD }}
             FOOTBALL_API_BASE_URL=${{ secrets.FOOTBALL_API_BASE_URL }}
             FOOTBALL_API_KEY=${{ secrets.FOOTBALL_API_KEY }}
-            SPRING_APPLICATION_NAME=footballApiSpring
+
+      - name: Allow public HTTP invoke
+        run: |
+          gcloud run services add-iam-policy-binding football-app \
+            --region europe-west1 \
+            --member="allUsers" \
+            --role="roles/run.invoker"
