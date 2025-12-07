@@ -46,6 +46,13 @@ public interface IPlayerControllerSwagger {
     @Operation(
             summary = "Crée un nouveau joueur",
             description = "Insère un nouveau joueur dans la base.",
+            parameters = {
+                    @Parameter(name = "name", description = "Nom du joueur", example = "Kylian Mbappé"),
+                    @Parameter(name = "age", description = "Âge du joueur", example = "24"),
+                    @Parameter(name = "position", description = "Poste sur le terrain", example = "FW"),
+                    @Parameter(name = "nationality", description = "Nationalité du joueur", example = "France"),
+                    @Parameter(name = "photo", description = "URL de la photo du joueur", example = "https://example.com/mbappe.png")
+            },
             responses = {
                     @ApiResponse(
                             responseCode = "201",
