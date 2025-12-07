@@ -1,11 +1,11 @@
 package com.app.footballapispring.teams;
 
-import com.app.footballapispring.domain.player.Player;
-import com.app.footballapispring.domain.player.PlayerRepository;
-import com.app.footballapispring.domain.teams.Team;
-import com.app.footballapispring.domain.teams.TeamRepository;
-import com.app.footballapispring.domain.teams.commands.AddPlayerToTeamCommand;
-import com.app.footballapispring.domain.teams.usescases.AddPlayerToTeamUseCase;
+import com.app.footballapispring.football.domain.player.Player;
+import com.app.footballapispring.football.domain.player.PlayerRepository;
+import com.app.footballapispring.football.domain.teams.Team;
+import com.app.footballapispring.football.domain.teams.TeamRepository;
+import com.app.footballapispring.football.domain.teams.commands.AddPlayerToTeamCommand;
+import com.app.footballapispring.football.domain.teams.usescases.AddPlayerToTeamUseCase;
 import org.junit.jupiter.api.Test;
 
 import java.util.Optional;

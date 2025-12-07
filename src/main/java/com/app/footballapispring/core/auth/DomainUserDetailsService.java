@@ -1,6 +1,6 @@
 package com.app.footballapispring.core.auth;
 
-import com.app.footballapispring.domain.user.UserRepository;
+import com.app.footballapispring.football.domain.user.UserRepository;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

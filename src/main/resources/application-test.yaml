@@ -1,17 +1,25 @@
 spring:
   datasource:
     url: jdbc:h2:mem:football
+    driver-class-name: org.h2.Driver
     username: sa
     password:
-  h2:
-    console:
-      enabled: true
+
   jpa:
     hibernate:
       ddl-auto: create-drop
     show-sql: false
 
+  sql:
+    init:
+      mode: never
+
+security:
+  jwt:
+    secret: c3f9a1d4b7e28fa94c3d2b6e7f1a9d0c4f7e3b2a1c8d9e0f3a2c1b7d4e9f6a3
+    expiration-ms: 3600000
+
 football:
   api:
-    key: dummy-key-for-tests
+    key: dummy-key
     base-url: https://example.com

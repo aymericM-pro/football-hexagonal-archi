@@ -1,9 +1,9 @@
 package com.app.footballapispring.teams;
 
 import com.app.footballapispring.IntegrationTests;
-import com.app.footballapispring.application.rest.teams.CreateTeamDTO;
-import com.app.footballapispring.application.rest.teams.TeamDTO;
-import com.app.footballapispring.domain.teams.TeamRepository;
+import com.app.footballapispring.football.application.rest.teams.CreateTeamDTO;
+import com.app.footballapispring.football.application.rest.teams.TeamDTO;
+import com.app.footballapispring.football.domain.teams.TeamRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;

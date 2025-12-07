@@ -1,31 +1,10 @@
 spring:
   application:
-    name: ${SPRING_APPLICATION_NAME:footballApiSpring}
-
-  datasource:
-    url: ${DB_URL}
-    username: ${DB_USERNAME}
-    password: ${DB_PASSWORD}
-
-  sql:
-    init:
-      mode: always
-  jpa:
-    hibernate:
-      ddl-auto: update
-    show-sql: true
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
-
-logging:
-  level:
-    org.springframework.boot.context.config: DEBUG
+    name: footballApiSpring
 
 server:
   servlet:
     context-path: /api/v1
-  port: ${PORT:8080}
 
 management:
   endpoints:
@@ -35,16 +14,13 @@ management:
   endpoint:
     health:
       show-details: always
-  metrics:
-    tags:
-      application: footballApiSpring
+
+security:
+  jwt:
+    secret: c3f9a1d4b7e28fa94c3d2b6e7f1a9d0c4f7e3b2a1c8d9e0f3a2c1b7d4e9f6a3
+    expiration-ms: 3600000
 
 football:
   api:
     key: ${FOOTBALL_API_KEY}
     base-url: ${FOOTBALL_API_BASE_URL}
-
-security:
-  jwt:
-    secret: ${JWT_SECRET:F7C2A1D9E3B6F0A4C8D3F1E2A7B9C0D4F7E5A6C3D2B8F1A9C4E3D7B2A1F9C8}
-    expiration-ms: 3600000

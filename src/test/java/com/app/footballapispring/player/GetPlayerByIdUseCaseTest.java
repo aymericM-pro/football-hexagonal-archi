@@ -1,10 +1,10 @@
 package com.app.footballapispring.player;
 
 
-import com.app.footballapispring.domain.player.Player;
-import com.app.footballapispring.domain.player.PlayerRepository;
-import com.app.footballapispring.domain.player.command.GetPlayerByIdQuery;
-import com.app.footballapispring.domain.player.usescases.GetPlayerByIdUseCase;
+import com.app.footballapispring.football.domain.player.Player;
+import com.app.footballapispring.football.domain.player.PlayerRepository;
+import com.app.footballapispring.football.domain.player.command.GetPlayerByIdQuery;
+import com.app.footballapispring.football.domain.player.usescases.GetPlayerByIdUseCase;
 import org.junit.jupiter.api.Test;
 
 import java.util.Optional;

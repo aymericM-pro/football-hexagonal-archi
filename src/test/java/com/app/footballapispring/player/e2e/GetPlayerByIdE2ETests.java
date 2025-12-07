@@ -1,8 +1,8 @@
 package com.app.footballapispring.player.e2e;
 
 import com.app.footballapispring.IntegrationTests;
-import com.app.footballapispring.application.rest.player.CreatePlayerDTO;
-import com.app.footballapispring.domain.player.PlayerRepository;
+import com.app.footballapispring.football.application.rest.player.CreatePlayerDTO;
+import com.app.footballapispring.football.domain.player.PlayerRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;

@@ -1,6 +1,6 @@
 package com.app.footballapispring.core.auth;
 
-import com.app.footballapispring.domain.user.User;
+import com.app.footballapispring.football.domain.user.User;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
