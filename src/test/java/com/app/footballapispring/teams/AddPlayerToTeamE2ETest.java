@@ -3,6 +3,7 @@ package com.app.footballapispring.teams;
 import com.app.footballapispring.IntegrationTests;
 import com.app.footballapispring.football.domain.player.Player;
 import com.app.footballapispring.football.domain.player.PlayerRepository;
+import com.app.footballapispring.football.domain.player.models.Position;
 import com.app.footballapispring.football.domain.teams.Team;
 import com.app.footballapispring.football.domain.teams.TeamRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -33,7 +34,7 @@ class AddPlayerToTeamE2ETest extends IntegrationTests {
         player = new Player(
                 "Mbappé",
                 25,
-                "FW",
+                Position.MID,
                 "France",
                 "photo"
         );

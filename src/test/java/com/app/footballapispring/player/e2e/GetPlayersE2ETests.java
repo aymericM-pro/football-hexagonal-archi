@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import com.app.footballapispring.IntegrationTests;
 import com.app.footballapispring.football.application.rest.player.CreatePlayerDTO;
 import com.app.footballapispring.football.domain.player.PlayerRepository;
+import com.app.footballapispring.football.domain.player.models.Position;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -23,8 +24,8 @@ class GetPlayersE2ETests extends IntegrationTests {
     @Test
     void shouldFindAllPlayers() throws Exception {
 
-        createPlayer(new CreatePlayerDTO("PlayerA", 22, "MF", "France", "photoA"));
-        createPlayer(new CreatePlayerDTO("PlayerB", 28, "FW", "Spain", "photoB"));
+        createPlayer(new CreatePlayerDTO("PlayerA", 22, Position.MID, "France", "photoA"));
+        createPlayer(new CreatePlayerDTO("PlayerB", 28, Position.DEF, "Spain", "photoB"));
 
         var json = getPlayers();
 

@@ -2,6 +2,7 @@ package com.app.footballapispring.teams;
 
 import com.app.footballapispring.football.domain.player.Player;
 import com.app.footballapispring.football.domain.player.PlayerRepository;
+import com.app.footballapispring.football.domain.player.models.Position;
 import com.app.footballapispring.football.domain.teams.Team;
 import com.app.footballapispring.football.domain.teams.TeamRepository;
 import com.app.footballapispring.football.domain.teams.commands.AddPlayerToTeamCommand;
@@ -27,7 +28,7 @@ class AddPlayerToTeamUseCaseTest {
         Team team = new Team("t1", "PSG", "France");
         when(teamRepo.findById("t1")).thenReturn(Optional.of(team));
 
-        Player p = new Player("1", "Mbappé", 25, "FW", "France", "photo");
+        Player p = new Player("1", "Mbappé", 25, Position.ATT, "France", "photo");
         when(playerRepo.findById("p1")).thenReturn(Optional.of(p));
 
         Team updated = new Team("t1", "PSG", "France");

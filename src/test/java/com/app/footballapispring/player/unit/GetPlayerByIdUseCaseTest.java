@@ -1,9 +1,10 @@
-package com.app.footballapispring.player;
+package com.app.footballapispring.player.unit;
 
 
 import com.app.footballapispring.football.domain.player.Player;
 import com.app.footballapispring.football.domain.player.PlayerRepository;
 import com.app.footballapispring.football.domain.player.command.GetPlayerByIdQuery;
+import com.app.footballapispring.football.domain.player.models.Position;
 import com.app.footballapispring.football.domain.player.usescases.GetPlayerByIdUseCase;
 import org.junit.jupiter.api.Test;
 
@@ -19,7 +20,7 @@ class GetPlayerByIdUseCaseTest {
         var repo = mock(PlayerRepository.class);
         var useCase = new GetPlayerByIdUseCase(repo);
 
-        var p = new Player("1", "PlayerX", 30, "DF", "Germany", "photo");
+        var p = new Player("1", "PlayerX", 30, Position.DEF, "Germany", "photo");
 
         when(repo.findById("1")).thenReturn(Optional.of(p));
 

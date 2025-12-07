@@ -1,8 +1,9 @@
-package com.app.footballapispring.player;
+package com.app.footballapispring.player.unit;
 
 import com.app.footballapispring.football.domain.player.Player;
 import com.app.footballapispring.football.domain.player.PlayerRepository;
 import com.app.footballapispring.football.domain.player.command.GetAllPlayersQuery;
+import com.app.footballapispring.football.domain.player.models.Position;
 import com.app.footballapispring.football.domain.player.usescases.GetAllPlayersUseCase;
 import org.junit.jupiter.api.Test;
 
@@ -19,8 +20,8 @@ class GetAllPlayersUseCaseTest {
         var useCase = new GetAllPlayersUseCase(repo);
 
         var players = List.of(
-                new Player("1", "PlayerA", 20, "MF", "France", "urlA"),
-                new Player("2", "PlayerB", 25, "FW", "Spain", "urlB")
+                new Player("1", "PlayerA", 20, Position.MID, "France", "urlA"),
+                new Player("2", "PlayerB", 25, Position.MID, "Spain", "urlB")
         );
 
         when(repo.findAll()).thenReturn(players);

@@ -3,6 +3,7 @@ package com.app.footballapispring.player.e2e;
 import com.app.footballapispring.IntegrationTests;
 import com.app.footballapispring.football.application.rest.player.CreatePlayerDTO;
 import com.app.footballapispring.football.domain.player.PlayerRepository;
+import com.app.footballapispring.football.domain.player.models.Position;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -24,7 +25,7 @@ class CreatePlayerE2ETests extends IntegrationTests {
         var dto = new CreatePlayerDTO(
                 "player",
                 25,
-                "FW",
+                Position.ATT,
                 "France",
                 "url"
         );

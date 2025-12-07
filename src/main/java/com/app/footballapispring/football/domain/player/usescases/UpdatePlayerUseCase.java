@@ -15,13 +15,18 @@ public class UpdatePlayerUseCase implements CommandHandler<UpdatePlayerCommand, 
 
     @Override
     public Player handle(UpdatePlayerCommand c) {
-        Player p = repo.findById(c.id())
+        Player existing = repo.findById(c.id())
                 .orElseThrow(() -> new RuntimeException("Player not found"));
 
-/*
-        p.update(c.name(), c.age(), c.position(), c.nationality(), c.photo());
-*/
+        Player updated = new Player(
+                existing.getId(),
+                c.name(),
+                c.age(),
+                c.position(),
+                c.nationality(),
+                c.photo()
+        );
 
-        return repo.save(p);
+        return repo.save(updated);
     }
 }
