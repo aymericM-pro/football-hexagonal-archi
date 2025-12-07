@@ -1,8 +1,7 @@
 package com.app.footballapispring.domain.teams;
 
 import com.app.footballapispring.core.mediator.QueryHandler;
-
-import java.io.IOException;
+import com.app.footballapispring.footballApi.domain.fixtures.TeamDetailsFetcher;
 
 public class GetTeamDetailsUseCase implements QueryHandler<GetTeamDetailsQuery, TeamDetail> {
 

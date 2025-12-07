@@ -1,9 +1,11 @@
 package com.app.footballapispring.core.auth;
 
+import com.app.footballapispring.core.service.JwtService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -15,35 +17,40 @@ import java.io.IOException;
 @Component
 public class JwtAuthFilter extends OncePerRequestFilter {
 
-    private final JwtTokenProvider tokenProvider;
+    private final JwtService jwtService;
     private final UserDetailsService userDetailsService;
 
-    public JwtAuthFilter(JwtTokenProvider tokenProvider,
+    public JwtAuthFilter(JwtService jwtService,
                          UserDetailsService userDetailsService) {
-        this.tokenProvider = tokenProvider;
+        this.jwtService = jwtService;
         this.userDetailsService = userDetailsService;
     }
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request,
-                                    HttpServletResponse response,
-                                    FilterChain filterChain)
-            throws ServletException, IOException {
+    protected void doFilterInternal(
+            HttpServletRequest request,
+            @NotNull HttpServletResponse response,
+            @NotNull FilterChain filterChain
+    ) throws ServletException, IOException {
 
         String header = request.getHeader("Authorization");
+
         if (header != null && header.startsWith("Bearer ")) {
             String token = header.substring(7);
+
             try {
-                String email = tokenProvider.getEmail(token);
+                String email = jwtService.extractEmail(token);
                 var userDetails = userDetailsService.loadUserByUsername(email);
+
                 var auth = new UsernamePasswordAuthenticationToken(
                         userDetails,
                         null,
                         userDetails.getAuthorities()
                 );
+
                 SecurityContextHolder.getContext().setAuthentication(auth);
-            } catch (Exception ex) {
-                // token invalide -> on laisse passer sans auth, Spring Security renverra 401
+            } catch (Exception ignored) {
+                // Token invalide -> laisser Spring gérer (401)
             }
         }
 

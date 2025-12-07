@@ -1,10 +1,10 @@
 package com.app.footballapispring.infrastructure.footballapi.team;
 
-import com.app.footballapispring.OkHttp3Helper;
+import com.app.footballapispring.footballApi.rest.OkHttp3Helper;
 import com.app.footballapispring.domain.teams.TeamDetail;
-import com.app.footballapispring.domain.teams.TeamDetailsFetcher;
+import com.app.footballapispring.footballApi.domain.fixtures.TeamDetailsFetcher;
 import org.springframework.stereotype.Component;
-import tools.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.JsonNode;
 
 import java.util.Map;
 

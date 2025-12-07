@@ -1,6 +1,7 @@
 package com.app.footballapispring.domain.player;
 
 import com.app.footballapispring.core.mediator.QueryHandler;
+import com.app.footballapispring.footballApi.domain.fixtures.PlayerFetcher;
 
 import java.util.List;
 

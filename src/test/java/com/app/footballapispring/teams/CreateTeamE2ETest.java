@@ -35,8 +35,6 @@ class CreateTeamE2ETest extends IntegrationTests {
                 TeamDTO.class
         );
 
-        clearDatabaseCache();
-
         var team = teamRepository.findById(response.id()).orElseThrow();
 
         assertThat(team.getName()).isEqualTo("PSG");

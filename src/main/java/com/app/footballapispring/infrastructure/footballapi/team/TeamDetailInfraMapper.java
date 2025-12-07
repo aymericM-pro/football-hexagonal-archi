@@ -1,7 +1,7 @@
 package com.app.footballapispring.infrastructure.footballapi.team;
 
 import com.app.footballapispring.domain.teams.TeamDetail;
-import tools.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.JsonNode;
 
 public class TeamDetailInfraMapper {
 

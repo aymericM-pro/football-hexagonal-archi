@@ -20,7 +20,7 @@ public interface IAuthControllerSwagger {
                     @ApiResponse(responseCode = "409", description = "L'utilisateur existe déjà")
             }
     )
-    ResponseEntity<Void> register(
+    ResponseEntity<AuthResponseDTO> register(
             @Parameter(description = "Informations d'inscription")
             RegisterRequestDTO dto
     );

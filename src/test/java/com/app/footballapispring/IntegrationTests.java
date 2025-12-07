@@ -1,13 +1,12 @@
 package com.app.footballapispring;
 
-import jakarta.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
-import tools.jackson.databind.ObjectMapper;
+import org.springframework.test.web.servlet.MockMvc;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @SpringBootTest
 @AutoConfigureMockMvc(addFilters = false)
@@ -20,12 +19,4 @@ public abstract class IntegrationTests {
 
     @Autowired
     protected ObjectMapper objectMapper;
-
-    @Autowired
-    protected EntityManager entityManager;
-
-    protected void clearDatabaseCache() {
-        entityManager.flush();
-        entityManager.clear();
-    }
 }

@@ -1,6 +1,7 @@
 package com.app.footballapispring.core.auth;
 
 import com.app.footballapispring.domain.user.User;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,6 +17,7 @@ public class SecurityUserPrincipal implements UserDetails {
         this.user = user;
     }
 
+    @NotNull
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority("ROLE_" + user.getRole().name()));
@@ -26,6 +28,7 @@ public class SecurityUserPrincipal implements UserDetails {
         return user.getPasswordHash();
     }
 
+    @NotNull
     @Override
     public String getUsername() {
         return user.getEmail();

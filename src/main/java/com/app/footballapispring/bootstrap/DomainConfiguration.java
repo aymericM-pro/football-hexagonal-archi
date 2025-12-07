@@ -1,23 +1,25 @@
 package com.app.footballapispring.bootstrap;
 
-import com.app.footballapispring.domain.fixtures.FixtureFetcher;
-import com.app.footballapispring.domain.fixtures.GetFixturesUseCase;
+import com.app.footballapispring.core.auth.BcryptPasswordHasher;
+import com.app.footballapispring.core.service.JwtService;
+import com.app.footballapispring.core.service.PasswordHasher;
+import com.app.footballapispring.footballApi.domain.fixtures.FixtureFetcher;
+import com.app.footballapispring.footballApi.domain.fixtures.GetFixturesUseCase;
 import com.app.footballapispring.domain.player.GetPlayersUseCase;
-import com.app.footballapispring.domain.player.PlayerFetcher;
+import com.app.footballapispring.footballApi.domain.fixtures.PlayerFetcher;
 import com.app.footballapispring.domain.player.PlayerRepository;
 import com.app.footballapispring.domain.player.usescases.*;
-import com.app.footballapispring.domain.standings.GetStandingsUseCase;
-import com.app.footballapispring.domain.standings.StandingsFetcher;
+import com.app.footballapispring.footballApi.domain.standings.GetStandingsUseCase;
+import com.app.footballapispring.footballApi.domain.standings.StandingsFetcher;
 import com.app.footballapispring.domain.teams.GetTeamDetailsUseCase;
-import com.app.footballapispring.domain.teams.Team;
-import com.app.footballapispring.domain.teams.TeamDetailsFetcher;
+import com.app.footballapispring.footballApi.domain.fixtures.TeamDetailsFetcher;
 import com.app.footballapispring.domain.teams.TeamRepository;
-import com.app.footballapispring.domain.teams.commands.GetAllTeamsQuery;
-import com.app.footballapispring.domain.teams.commands.GetTeamByIdQuery;
 import com.app.footballapispring.domain.teams.usescases.AddPlayerToTeamUseCase;
 import com.app.footballapispring.domain.teams.usescases.CreateTeamUseCase;
 import com.app.footballapispring.domain.teams.usescases.GetAllTeamUseCase;
 import com.app.footballapispring.domain.teams.usescases.GetTeamByIdUseCase;
+import com.app.footballapispring.domain.user.UserRepository;
+import com.app.footballapispring.domain.user.usescases.RegisterUserUseCase;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -87,5 +89,15 @@ public class DomainConfiguration {
     @Bean
     public GetTeamByIdUseCase getTeamByIdUseCase(TeamRepository repository) {
         return new GetTeamByIdUseCase(repository);
+    }
+
+    @Bean
+    public PasswordHasher passwordHasher() {
+        return new BcryptPasswordHasher();
+    }
+
+    @Bean
+    public RegisterUserUseCase registerUserUseCase(UserRepository userRepository, PasswordHasher passwordHasher, JwtService jwtService) {
+        return new RegisterUserUseCase(userRepository, passwordHasher, jwtService);
     }
 }

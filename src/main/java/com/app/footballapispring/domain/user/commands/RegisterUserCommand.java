@@ -6,4 +6,4 @@ import com.app.footballapispring.domain.user.User;
 public record RegisterUserCommand(
         String email,
         String password
-) implements Command<User> {}
+) implements Command<AuthResult> {}
