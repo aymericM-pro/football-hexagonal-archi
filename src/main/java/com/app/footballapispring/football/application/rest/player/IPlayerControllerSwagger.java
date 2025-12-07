@@ -87,7 +87,6 @@ public interface IPlayerControllerSwagger {
             PlayerDTO dto
     );
 
-
     @Operation(
             summary = "Supprime un joueur",
             description = "Supprime un joueur existant.",

@@ -1,5 +1,6 @@
 package com.app.footballapispring.football.infrastructure.player;
 
+import com.app.footballapispring.football.domain.player.models.Position;
 import com.app.footballapispring.football.infrastructure.team.TeamEntity;
 import jakarta.persistence.*;
 
@@ -20,7 +21,7 @@ public class PlayerEntity {
 
     private String name;
     private int age;
-    private String position;
+    private Position position;
     private String nationality;
     private String photo;
 
@@ -30,7 +31,7 @@ public class PlayerEntity {
 
 
 
-    public PlayerEntity(String name, int age, String position, String nationality, String photo) {
+    public PlayerEntity(String name, int age, Position position, String nationality, String photo) {
         this.name = name;
         this.age = age;
         this.position = position;
