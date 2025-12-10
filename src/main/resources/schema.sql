@@ -12,7 +12,7 @@ CREATE TABLE teams (
 
 CREATE TABLE players (
                          player_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-                         team_id UUID REFERENCES teams(id),
+                         team_id UUID REFERENCES teams(team_id),
                          name VARCHAR(100) NOT NULL,
                          age INT,
                          position VARCHAR(20),

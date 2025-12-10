@@ -6,15 +6,13 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
 @SecurityRequirement(name = "BearerAuth")
 public interface ITeamControllerSwagger {
 
-    // ----------------------------------------
-    // 1) GET ALL TEAMS
-    // ----------------------------------------
     @Operation(
             summary = "Liste des équipes",
             description = "Récupère la liste de toutes les équipes enregistrées.",
@@ -31,12 +29,21 @@ public interface ITeamControllerSwagger {
     )
     List<TeamDTO> getAllTeams();
 
-    // ----------------------------------------
-    // 2) CREATE TEAM
-    // ----------------------------------------
     @Operation(
             summary = "Créer une équipe",
             description = "Ajoute une nouvelle équipe à la base de données.",
+            parameters = {
+                    @Parameter(
+                            name = "name",
+                            description = "Nom de l'équipe",
+                            example = "Paris Saint-Germain"
+                    ),
+                    @Parameter(
+                            name = "country",
+                            description = "Pays de l'équipe",
+                            example = "France"
+                    )
+            },
             responses = {
                     @ApiResponse(
                             responseCode = "201",
@@ -50,13 +57,9 @@ public interface ITeamControllerSwagger {
             }
     )
     TeamDTO createTeam(
-            @Parameter(description = "Nom et pays de l'équipe")
-            CreateTeamDTO dto
+            @RequestBody CreateTeamDTO dto
     );
 
-    // ----------------------------------------
-    // 3) ADD PLAYER TO TEAM
-    // ----------------------------------------
     @Operation(
             summary = "Ajouter un joueur à une équipe",
             description = "Associe un joueur existant dans la base de données à une équipe.",
@@ -80,9 +83,6 @@ public interface ITeamControllerSwagger {
             String playerId
     );
 
-    // ----------------------------------------
-    // 4) GET TEAM BY ID
-    // ----------------------------------------
     @Operation(
             summary = "Récupérer une équipe par ID",
             description = "Renvoie les informations détaillées d’une équipe, incluant ses joueurs.",

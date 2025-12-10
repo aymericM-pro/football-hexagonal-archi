@@ -16,6 +16,15 @@ public interface IChampionshipSwagger {
     @Operation(
             summary = "Crée un nouveau championnat",
             description = "Enregistre un championnat dans la base",
+            parameters = {
+                    @Parameter(name = "name", description = "Nom du championnat", example = "Premier League"),
+                    @Parameter(name = "code", description = "Code court du championnat", example = "EPL"),
+                    @Parameter(name = "country", description = "Pays du championnat", example = "GB"),
+                    @Parameter(name = "season", description = "Saison concernée", example = "2024/2025"),
+                    @Parameter(name = "division", description = "Division du championnat", example = "D1"),
+                    @Parameter(name = "type", description = "Type du championnat", example = "LEAGUE"),
+                    @Parameter(name = "photo", description = "URL du logo", example = "https://example.com/epl.png")
+            },
             responses = {
                     @ApiResponse(
                             responseCode = "201",
@@ -40,6 +49,10 @@ public interface IChampionshipSwagger {
     @Operation(
             summary = "Ajout une équipe à un championnat",
             description = "Ajout d'une équipe dans un championnat",
+            parameters = {
+                    @Parameter(name = "championshipId", description = "ID du championnat", example = "123e4567-e89b-12d3-a456-426614174000"),
+                    @Parameter(name = "teamId", description = "ID de l'équipe à ajouter", example = "550e8400-e29b-41d4-a716-446655440000")
+            },
             responses = {
                     @ApiResponse(
                             responseCode = "200",

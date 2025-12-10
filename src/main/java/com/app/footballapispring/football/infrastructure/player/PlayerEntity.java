@@ -21,7 +21,10 @@ public class PlayerEntity {
 
     private String name;
     private int age;
+
+    @Enumerated(EnumType.STRING)
     private Position position;
+
     private String nationality;
     private String photo;
 
