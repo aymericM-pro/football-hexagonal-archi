@@ -1,6 +1,7 @@
 package com.app.footballapispring.football.bootstrap;
 
 import com.app.footballapispring.football.domain.championship.ChampionshipRepository;
+import com.app.footballapispring.football.domain.championship.command.GetAllChampionshipQuery;
 import com.app.footballapispring.football.domain.championship.usescases.AddTeamToChampionshipUseCase;
 import com.app.footballapispring.football.domain.championship.usescases.CreateChampionshipUseCase;
 import com.app.footballapispring.football.domain.teams.TeamRepository;
@@ -18,5 +19,10 @@ public class ChampionshipDomainConfig {
     @Bean
     public AddTeamToChampionshipUseCase addTeamToChampionshipUseCase(ChampionshipRepository repository, TeamRepository repositoryTeam) {
         return new AddTeamToChampionshipUseCase(repository, repositoryTeam);
+    }
+
+    @Bean
+    public GetAllChampionshipQuery getAllChampionshipQuery(ChampionshipRepository repository) {
+        return new GetAllChampionshipQuery(repository);
     }
 }

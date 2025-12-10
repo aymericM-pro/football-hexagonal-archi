@@ -4,6 +4,7 @@ import com.app.footballapispring.football.domain.championship.Championship;
 import com.app.footballapispring.football.domain.championship.ChampionshipRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -28,4 +29,13 @@ public class JpaChampionshipRepository implements ChampionshipRepository {
         return repository.findById(UUID.fromString(championshipId))
                 .map(ChampionshipMapper::toDomain);
     }
+
+    @Override
+    public List<Championship> findAll() {
+        return repository.findAll()
+                .stream()
+                .map(ChampionshipMapper::toDomain)
+                .toList();
+    }
+
 }

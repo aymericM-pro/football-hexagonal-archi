@@ -5,9 +5,12 @@ import com.app.footballapispring.football.application.rest.championship.requests
 import com.app.footballapispring.football.application.rest.championship.requests.CreateChampionshipRequest;
 import com.app.footballapispring.football.domain.championship.command.AddTeamToChampionshipCommand;
 import com.app.footballapispring.football.domain.championship.command.CreateChampionshipCommand;
+import com.app.footballapispring.football.domain.championship.command.GetAllChampionshipsQuery;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/championships")
@@ -52,4 +55,14 @@ public class ChampionshipController implements IChampionshipSwagger {
         );
     }
 
+    @GetMapping
+    public ResponseEntity<List<ChampionshipResponse>> getAllChampionships() {
+
+        List<ChampionshipResponse> result = mediator.send(new GetAllChampionshipsQuery())
+                .stream()
+                .map(ChampionshipMapper::toDto)
+                .toList();
+
+        return ResponseEntity.ok(result);
+    }
 }

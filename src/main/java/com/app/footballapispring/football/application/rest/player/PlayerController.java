@@ -23,6 +23,7 @@ public class PlayerController implements IPlayerControllerSwagger {
         this.mediator = mediator;
     }
 
+    @Override
     @GetMapping
     public ResponseEntity<List<PlayerDTO>> getAllPlayers() {
         List<PlayerDTO> result = mediator.send(new GetAllPlayersQuery())
@@ -33,12 +34,14 @@ public class PlayerController implements IPlayerControllerSwagger {
         return ResponseEntity.ok(result);
     }
 
+    @Override
     @GetMapping("/{id}")
     public ResponseEntity<PlayerDTO> getPlayerById(@PathVariable String id) {
         Player p = mediator.send(new GetPlayerByIdQuery(id));
         return ResponseEntity.ok(PlayerMapper.toDto(p));
     }
 
+    @Override
     @PostMapping
     public ResponseEntity<PlayerDTO> createPlayer(@RequestBody CreatePlayerDTO dto) {
         Player p = mediator.send(new CreatePlayerCommand(
@@ -54,6 +57,7 @@ public class PlayerController implements IPlayerControllerSwagger {
                 .body(PlayerMapper.toDto(p));
     }
 
+    @Override
     @PutMapping("/{id}")
     public ResponseEntity<PlayerDTO> updatePlayer(
             @PathVariable String id,
@@ -70,6 +74,7 @@ public class PlayerController implements IPlayerControllerSwagger {
         return ResponseEntity.ok(PlayerMapper.toDto(p));
     }
 
+    @Override
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletePlayer(@PathVariable String id) {
         mediator.send(new DeletePlayerCommand(id));
