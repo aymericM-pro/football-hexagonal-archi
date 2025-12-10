@@ -5,13 +5,13 @@ DROP TABLE IF EXISTS teams CASCADE;
 DROP TABLE IF EXISTS fixtures CASCADE;
 
 CREATE TABLE teams (
-                       id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+                       team_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
                        name VARCHAR(100) NOT NULL,
                        country VARCHAR(100) NOT NULL
 );
 
 CREATE TABLE players (
-                         id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+                         player_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
                          team_id UUID REFERENCES teams(id),
                          name VARCHAR(100) NOT NULL,
                          age INT,

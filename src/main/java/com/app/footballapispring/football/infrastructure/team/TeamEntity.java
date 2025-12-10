@@ -1,5 +1,6 @@
 package com.app.footballapispring.football.infrastructure.team;
 
+import com.app.footballapispring.football.infrastructure.championship.ChampionshipEntity;
 import com.app.footballapispring.football.infrastructure.player.PlayerEntity;
 import jakarta.persistence.*;
 import lombok.*;
@@ -16,10 +17,14 @@ public class TeamEntity {
 
     @Id
     @GeneratedValue
-    private UUID id;
+    private UUID teamId;
 
     private String name;
     private String country;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "championship_id")
+    private ChampionshipEntity championship;
 
     @OneToMany(mappedBy = "team", cascade = CascadeType.ALL, orphanRemoval = false)
     private List<PlayerEntity> players = new ArrayList<>();

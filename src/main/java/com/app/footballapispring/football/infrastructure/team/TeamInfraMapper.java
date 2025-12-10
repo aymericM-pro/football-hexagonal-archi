@@ -14,7 +14,7 @@ public final class TeamInfraMapper {
 
     public static Team toDomain(TeamEntity entity) {
         return new Team(
-                entity.getId().toString(),
+                entity.getTeamId().toString(),
                 entity.getName(),
                 entity.getCountry()
         );
@@ -22,7 +22,7 @@ public final class TeamInfraMapper {
 
     public static Team toDomainWithPlayer(TeamEntity entity) {
         return new Team(
-                entity.getId().toString(),
+                entity.getTeamId().toString(),
                 entity.getName(),
                 entity.getCountry(),
                 entity.getPlayers().stream()

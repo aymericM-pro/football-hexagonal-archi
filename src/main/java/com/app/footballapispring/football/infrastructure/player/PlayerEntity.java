@@ -17,7 +17,7 @@ public class PlayerEntity {
 
     @Id
     @GeneratedValue
-    private UUID id;
+    private UUID playerId;
 
     private String name;
     private int age;

@@ -1,10 +1,12 @@
 package com.app.footballapispring.core.models;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.util.Arrays;
 
 @Getter
+@AllArgsConstructor
 public enum Country {
 
     AF("AF", "Afghanistan"),
@@ -260,16 +262,10 @@ public enum Country {
     private final String code;
     private final String label;
 
-    Country(String code, String label) {
-        this.code = code;
-        this.label = label;
-    }
-
     public static Country fromCode(String code) {
         return Arrays.stream(values())
                 .filter(c -> c.code.equalsIgnoreCase(code))
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException("Unknown country code: " + code));
     }
-
 }

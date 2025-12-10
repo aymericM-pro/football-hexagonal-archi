@@ -2,9 +2,7 @@ package com.app.footballapispring.football.infrastructure.player;
 
 import com.app.footballapispring.football.domain.player.Player;
 
-public final class PlayerInfraMapper {
-
-    private PlayerInfraMapper() {}
+public class PlayerInfraMapper {
 
     public static PlayerEntity toEntity(Player p) {
         return new PlayerEntity(
@@ -18,7 +16,7 @@ public final class PlayerInfraMapper {
 
     public static Player toDomain(PlayerEntity e) {
         return new Player(
-                e.getId().toString(),
+                e.getPlayerId().toString(),
                 e.getName(),
                 e.getAge(),
                 e.getPosition(),
