@@ -4,6 +4,7 @@ import com.app.footballapispring.football.domain.user.User;
 import com.app.footballapispring.football.domain.user.UserRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -28,6 +29,23 @@ public class JpaUserRepository implements UserRepository {
                 saved.getEmail(),
                 saved.getPasswordHash(),
                 saved.getRole()
+        );
+    }
+
+    @Override
+    public List<User> findAll() {
+        return repo.findAll()
+                .stream()
+                .map(this::toDomain)
+                .toList();
+    }
+
+    private User toDomain(UserEntity e) {
+        return new User(
+                e.getId().toString(),
+                e.getEmail(),
+                e.getPasswordHash(),
+                e.getRole()
         );
     }
 

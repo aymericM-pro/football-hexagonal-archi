@@ -35,20 +35,16 @@ public class RegisterUserUseCase implements CommandHandler<RegisterUserCommand, 
             throw new BusinessException(UserError.EMAIL_ALREADY_EXISTS);
         }
 
-        // Hash password
         String hash = passwordHasher.hash(cmd.password());
 
-        // Create user
         User user = new User(cmd.email(), hash, Role.USER);
         User saved = userRepository.save(user);
 
-        // 🔥 Generate token for immediate login
         String token = jwtService.generateToken(
                 saved.getEmail(),
                 saved.getRole().name()
         );
 
-        // 🔥 Return AuthResult instead of null
         return new AuthResult(token);
     }
 }

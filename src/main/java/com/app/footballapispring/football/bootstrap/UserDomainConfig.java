@@ -5,6 +5,7 @@ import com.app.footballapispring.core.auth.BcryptPasswordHasher;
 import com.app.footballapispring.core.service.JwtService;
 import com.app.footballapispring.core.service.PasswordHasher;
 import com.app.footballapispring.football.domain.user.UserRepository;
+import com.app.footballapispring.football.domain.user.usescases.GetAllUsersUseCase;
 import com.app.footballapispring.football.domain.user.usescases.LoginUserUseCase;
 import com.app.footballapispring.football.domain.user.usescases.RegisterUserUseCase;
 import org.springframework.context.annotation.Bean;
@@ -33,5 +34,10 @@ public class UserDomainConfig {
             JwtService jwtService
     ) {
         return new RegisterUserUseCase(userRepository, passwordHasher, jwtService);
+    }
+
+    @Bean
+    public GetAllUsersUseCase getAllUsersUseCase(UserRepository userRepository) {
+        return new GetAllUsersUseCase(userRepository);
     }
 }
