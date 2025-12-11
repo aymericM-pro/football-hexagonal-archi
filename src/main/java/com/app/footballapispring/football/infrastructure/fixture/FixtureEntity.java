@@ -1,5 +1,6 @@
 package com.app.footballapispring.football.infrastructure.fixture;
 
+import com.app.footballapispring.football.infrastructure.rounday.RoundDayEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -31,6 +32,10 @@ public class FixtureEntity {
     private Integer awayScore;
 
     private LocalDateTime date;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "round_day_id")
+    private RoundDayEntity roundDay;
 
     public FixtureEntity(String homeTeamId,
                          String awayTeamId,
