@@ -15,6 +15,12 @@ management:
     health:
       show-details: always
 
+springdoc:
+  swagger-ui:
+    filter: true
+    tags-sorter: alpha
+    operations-sorter: method
+
 security:
   jwt:
     secret: c3f9a1d4b7e28fa94c3d2b6e7f1a9d0c4f7e3b2a1c8d9e0f3a2c1b7d4e9f6a3
