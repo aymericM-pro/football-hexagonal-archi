@@ -1,11 +1,11 @@
-package com.app.footballapispring.football.domain.rounday.useCases;
+package com.app.footballapispring.football.domain.roundday.useCases;
 
 
 import com.app.footballapispring.core.mediator.QueryHandler;
-import com.app.footballapispring.football.domain.rounday.RoundDay;
-import com.app.footballapispring.football.domain.rounday.RoundDayRepository;
-import com.app.footballapispring.football.domain.rounday.commands.GetRoundDayQuery;
-import com.app.footballapispring.football.domain.rounday.models.RoundDayResult;
+import com.app.footballapispring.football.domain.roundday.RoundDay;
+import com.app.footballapispring.football.domain.roundday.RoundDayRepository;
+import com.app.footballapispring.football.domain.roundday.commands.GetRoundDayQuery;
+import com.app.footballapispring.football.domain.roundday.models.RoundDayResult;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor

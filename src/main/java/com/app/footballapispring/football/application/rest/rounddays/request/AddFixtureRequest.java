@@ -1,4 +1,4 @@
-package com.app.footballapispring.football.application.rest.roundays.request;
+package com.app.footballapispring.football.application.rest.rounddays.request;
 
 import java.time.LocalDateTime;
 

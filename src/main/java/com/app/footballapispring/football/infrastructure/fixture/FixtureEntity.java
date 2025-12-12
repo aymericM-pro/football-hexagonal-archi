@@ -1,6 +1,6 @@
 package com.app.footballapispring.football.infrastructure.fixture;
 
-import com.app.footballapispring.football.infrastructure.rounday.RoundDayEntity;
+import com.app.footballapispring.football.infrastructure.roundday.RoundDayEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

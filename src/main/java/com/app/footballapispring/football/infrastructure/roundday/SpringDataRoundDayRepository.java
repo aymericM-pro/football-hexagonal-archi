@@ -1,4 +1,4 @@
-package com.app.footballapispring.football.infrastructure.rounday;
+package com.app.footballapispring.football.infrastructure.roundday;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

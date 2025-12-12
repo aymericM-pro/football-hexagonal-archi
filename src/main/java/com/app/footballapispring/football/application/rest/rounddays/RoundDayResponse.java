@@ -1,4 +1,4 @@
-package com.app.footballapispring.football.application.rest.roundays;
+package com.app.footballapispring.football.application.rest.rounddays;
 
 import com.app.footballapispring.football.application.rest.fixture.request.FixtureResponse;
 

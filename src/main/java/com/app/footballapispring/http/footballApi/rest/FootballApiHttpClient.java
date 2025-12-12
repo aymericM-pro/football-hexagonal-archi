@@ -14,7 +14,7 @@ public class FootballApiHttpClient {
 
     private final OkHttpClient client = new OkHttpClient();
     private final ObjectMapper mapper = new ObjectMapper();
-    private final static String API_KEY_PROPERTIES = "x-apisports-key";
+    private static final String API_KEY_PROPERTIES = "x-apisports-key";
 
     public JsonNode get(String url, String apiKey) {
 
@@ -42,4 +42,3 @@ public class FootballApiHttpClient {
         }
     }
 }
-

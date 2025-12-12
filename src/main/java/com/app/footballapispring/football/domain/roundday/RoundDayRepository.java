@@ -1,4 +1,4 @@
-package com.app.footballapispring.football.domain.rounday;
+package com.app.footballapispring.football.domain.roundday;
 
 import java.util.List;
 import java.util.Optional;

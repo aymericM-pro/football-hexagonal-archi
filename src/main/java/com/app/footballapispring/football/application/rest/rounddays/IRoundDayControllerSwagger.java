@@ -1,15 +1,17 @@
-package com.app.footballapispring.football.application.rest.roundays;
+package com.app.footballapispring.football.application.rest.rounddays;
 
-import com.app.footballapispring.football.application.rest.roundays.request.AddFixtureRequest;
-import com.app.footballapispring.football.application.rest.roundays.request.CreateRoundDayRequest;
+import com.app.footballapispring.football.application.rest.rounddays.request.AddFixtureRequest;
+import com.app.footballapispring.football.application.rest.rounddays.request.CreateRoundDayRequest;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.*;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 
 @Tag(name = "RoundDays", description = "Gestion des journées d’un championnat (matchdays)")
+@SecurityRequirement(name = "BearerAuth")
 public interface IRoundDayControllerSwagger {
 
     @Operation(

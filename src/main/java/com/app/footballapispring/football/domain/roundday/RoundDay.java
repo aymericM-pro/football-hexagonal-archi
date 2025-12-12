@@ -1,4 +1,4 @@
-package com.app.footballapispring.football.domain.rounday;
+package com.app.footballapispring.football.domain.roundday;
 
 import com.app.footballapispring.football.domain.fixture.Fixture;
 import lombok.Getter;
@@ -13,9 +13,17 @@ public class RoundDay {
     private final int number;
     private final List<Fixture> fixtures = new ArrayList<>();
 
+    // Création
     public RoundDay(int number) {
         this.number = number;
     }
+
+    // Reconstitution
+    public RoundDay(String id, int number) {
+        this.id = id;
+        this.number = number;
+    }
+
 
     public void addFixture(Fixture fixture) {
         boolean exists = fixtures.stream()

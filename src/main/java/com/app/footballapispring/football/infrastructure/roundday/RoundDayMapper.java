@@ -1,7 +1,7 @@
-package com.app.footballapispring.football.infrastructure.rounday;
+package com.app.footballapispring.football.infrastructure.roundday;
 
 import com.app.footballapispring.football.domain.fixture.Fixture;
-import com.app.footballapispring.football.domain.rounday.RoundDay;
+import com.app.footballapispring.football.domain.roundday.RoundDay;
 import com.app.footballapispring.football.infrastructure.fixture.FixtureEntity;
 
 public final class RoundDayMapper {
@@ -9,14 +9,15 @@ public final class RoundDayMapper {
     private RoundDayMapper() {}
 
     public static RoundDay toDomain(RoundDayEntity entity) {
-        if (entity == null) return null;
-
-        RoundDay round = new RoundDay(entity.getNumber());
+        RoundDay round = new RoundDay(
+                entity.getRoundDayId().toString(),
+                entity.getNumber()
+        );
 
         entity.getFixtures().forEach(f ->
                 round.addFixture(
                         new Fixture(
-                                f.getRoundDay() != null ? f.getRoundDay().toString() : null,
+                                f.getFixtureId().toString(),
                                 f.getHomeTeamId(),
                                 f.getAwayTeamId(),
                                 f.getHomeScore(),
@@ -30,20 +31,19 @@ public final class RoundDayMapper {
     }
 
     public static RoundDayEntity toEntity(RoundDay domain) {
-        if (domain == null) return null;
-
         RoundDayEntity entity = new RoundDayEntity(domain.getNumber());
 
-        domain.getFixtures().forEach(f -> {
-            FixtureEntity fe = new FixtureEntity(
-                    f.getHomeTeamId(),
-                    f.getAwayTeamId(),
-                    f.getHomeScore(),
-                    f.getAwayScore(),
-                    f.getDate()
-            );
-            entity.addFixture(fe);
-        });
+        domain.getFixtures().forEach(f ->
+                entity.addFixture(
+                        new FixtureEntity(
+                                f.getHomeTeamId(),
+                                f.getAwayTeamId(),
+                                f.getHomeScore(),
+                                f.getAwayScore(),
+                                f.getDate()
+                        )
+                )
+        );
 
         return entity;
     }

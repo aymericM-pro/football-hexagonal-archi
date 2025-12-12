@@ -1,10 +1,10 @@
-package com.app.footballapispring.football.application.rest.roundays;
+package com.app.footballapispring.football.application.rest.rounddays;
 
 import com.app.footballapispring.core.mediator.Mediator;
-import com.app.footballapispring.football.application.rest.roundays.request.AddFixtureRequest;
-import com.app.footballapispring.football.application.rest.roundays.request.CreateRoundDayRequest;
-import com.app.footballapispring.football.domain.rounday.commands.*;
-import com.app.footballapispring.football.domain.rounday.models.RoundDayResult;
+import com.app.footballapispring.football.application.rest.rounddays.request.AddFixtureRequest;
+import com.app.footballapispring.football.application.rest.rounddays.request.CreateRoundDayRequest;
+import com.app.footballapispring.football.domain.roundday.commands.*;
+import com.app.footballapispring.football.domain.roundday.models.RoundDayResult;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
