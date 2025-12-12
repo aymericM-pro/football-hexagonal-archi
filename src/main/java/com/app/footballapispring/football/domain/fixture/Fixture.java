@@ -7,11 +7,11 @@ import java.time.LocalDateTime;
 @Getter
 public class Fixture {
     private String id;
-    private String homeTeamId;
-    private String awayTeamId;
-    private Integer homeScore;
-    private Integer awayScore;
-    private LocalDateTime date;
+    private final String homeTeamId;
+    private final String awayTeamId;
+    private final Integer homeScore;
+    private final Integer awayScore;
+    private final LocalDateTime date;
 
     public Fixture(String id, String homeTeamId, String awayTeamId, Integer homeScore, Integer awayScore, LocalDateTime date) {
         this.id = id;

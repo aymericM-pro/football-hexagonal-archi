@@ -13,12 +13,10 @@ public class RoundDay {
     private final int number;
     private final List<Fixture> fixtures = new ArrayList<>();
 
-    // Création
     public RoundDay(int number) {
         this.number = number;
     }
 
-    // Reconstitution
     public RoundDay(String id, int number) {
         this.id = id;
         this.number = number;
