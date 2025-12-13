@@ -3,9 +3,10 @@ package com.app.footballapispring.football.application.rest.championship;
 import com.app.footballapispring.core.mediator.Mediator;
 import com.app.footballapispring.football.application.rest.championship.requests.ChampionshipResponse;
 import com.app.footballapispring.football.application.rest.championship.requests.CreateChampionshipRequest;
-import com.app.footballapispring.football.domain.championship.command.AddTeamToChampionshipCommand;
-import com.app.footballapispring.football.domain.championship.command.CreateChampionshipCommand;
-import com.app.footballapispring.football.domain.championship.command.GetAllChampionshipsQuery;
+import com.app.footballapispring.football.application.rest.teams.TeamMapper;
+import com.app.footballapispring.football.application.rest.teams.TeamResponse;
+import com.app.footballapispring.football.domain.championship.Championship;
+import com.app.footballapispring.football.domain.championship.command.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -64,5 +65,29 @@ public class ChampionshipController implements IChampionshipSwagger {
                 .toList();
 
         return ResponseEntity.ok(result);
+    }
+
+    @PostMapping("/{championshipId}/initialize")
+    public ResponseEntity<Championship> initializeCalendar(
+            @PathVariable String championshipId
+    ) {
+        Championship championship = mediator.send(
+                new InitializeChampionshipCalendarCommand(championshipId)
+        );
+
+        return ResponseEntity.ok(championship);
+    }
+
+    @GetMapping("/{championshipId}/teams")
+    public ResponseEntity<List<TeamResponse>> getTeamsOfChampionship(
+            @PathVariable String championshipId
+    ) {
+        List<TeamResponse> teams = mediator.send(
+                        new GetTeamsOfChampionshipQuery(championshipId)
+                ).stream()
+                .map(TeamMapper::toResponse)
+                .toList();
+
+        return ResponseEntity.ok(teams);
     }
 }

@@ -1,5 +1,8 @@
 package com.app.footballapispring.core.error;
 
+import lombok.Getter;
+
+@Getter
 public enum FootballApiError {
 
     UNAUTHORIZED(401, "UNAUTHORIZED", "Invalid or missing API key"),
@@ -18,10 +21,6 @@ public enum FootballApiError {
         this.code = code;
         this.message = message;
     }
-
-    public int getHttpStatus() { return httpStatus; }
-    public String getCode() { return code; }
-    public String getMessage() { return message; }
 
     public static FootballApiError fromHttpStatus(int status) {
         for (FootballApiError e : values()) {

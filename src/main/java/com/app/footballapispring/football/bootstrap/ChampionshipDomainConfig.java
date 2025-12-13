@@ -4,6 +4,8 @@ import com.app.footballapispring.football.domain.championship.ChampionshipReposi
 import com.app.footballapispring.football.domain.championship.command.GetAllChampionshipQuery;
 import com.app.footballapispring.football.domain.championship.usescases.AddTeamToChampionshipUseCase;
 import com.app.footballapispring.football.domain.championship.usescases.CreateChampionshipUseCase;
+import com.app.footballapispring.football.domain.championship.usescases.GetTeamsOfChampionshipUseCase;
+import com.app.footballapispring.football.domain.championship.usescases.InitializeChampionshipCalendarUseCase;
 import com.app.footballapispring.football.domain.teams.TeamRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,5 +26,15 @@ public class ChampionshipDomainConfig {
     @Bean
     public GetAllChampionshipQuery getAllChampionshipQuery(ChampionshipRepository repository) {
         return new GetAllChampionshipQuery(repository);
+    }
+
+    @Bean
+    public InitializeChampionshipCalendarUseCase initializeChampionshipCalendarUseCase(ChampionshipRepository repository) {
+        return new InitializeChampionshipCalendarUseCase(repository);
+    }
+
+    @Bean
+    public GetTeamsOfChampionshipUseCase getTeamsOfChampionshipUseCases(ChampionshipRepository repository) {
+        return new GetTeamsOfChampionshipUseCase(repository);
     }
 }

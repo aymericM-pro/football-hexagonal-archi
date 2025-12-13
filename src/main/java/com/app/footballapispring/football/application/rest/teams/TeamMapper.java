@@ -13,4 +13,13 @@ public final class TeamMapper {
                 t.getCountry()
         );
     }
+
+    public static TeamResponse toResponse(Team team) {
+        return new TeamResponse(
+                team.getId(),
+                team.getName(),
+                team.getCountry()
+        );
+    }
+
 }
