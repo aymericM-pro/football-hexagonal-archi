@@ -1,7 +1,7 @@
 package com.app.footballapispring.football.domain.championship.usescases;
 
-import com.app.footballapispring.core.error.BusinessException;
-import com.app.footballapispring.core.error.exceptions.ChampionshipsError;
+import com.app.footballapispring.core.errors.BusinessException;
+import com.app.footballapispring.core.errors.exceptions.ChampionshipsError;
 import com.app.footballapispring.core.mediator.CommandHandler;
 import com.app.footballapispring.football.domain.championship.Championship;
 import com.app.footballapispring.football.domain.championship.ChampionshipRepository;

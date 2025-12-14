@@ -22,9 +22,13 @@ public class TeamEntity {
     private String name;
     private String country;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "championship_id")
-    private ChampionshipEntity championship;
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "championship_teams",
+            joinColumns = @JoinColumn(name = "team_id"),
+            inverseJoinColumns = @JoinColumn(name = "championship_id")
+    )
+    private List<ChampionshipEntity> championships = new ArrayList<>();
 
     @OneToMany(mappedBy = "team", cascade = CascadeType.ALL, orphanRemoval = false)
     private List<PlayerEntity> players = new ArrayList<>();
@@ -33,6 +37,12 @@ public class TeamEntity {
         this.name = name;
         this.country = country;
     }
+
+    public void addChampionship(ChampionshipEntity championship) {
+        this.championships.add(championship);
+        championship.getTeams().add(this);
+    }
+
 
     public void addPlayer(PlayerEntity player) {
         players.add(player);

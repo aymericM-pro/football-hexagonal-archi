@@ -1,4 +1,4 @@
-package com.app.footballapispring.core.error;
+package com.app.footballapispring.core.errors;
 
 import lombok.Getter;
 

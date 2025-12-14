@@ -1,7 +1,7 @@
 package com.app.footballapispring.football.domain.championship;
 
-import com.app.footballapispring.core.error.BusinessException;
-import com.app.footballapispring.core.error.exceptions.ChampionshipsError;
+import com.app.footballapispring.core.errors.BusinessException;
+import com.app.footballapispring.core.errors.exceptions.ChampionshipsError;
 import com.app.footballapispring.core.models.Country;
 import com.app.footballapispring.football.domain.fixture.Fixture;
 import com.app.footballapispring.football.domain.roundday.RoundDay;
@@ -51,32 +51,19 @@ public class Championship {
         this.logoUrl = logoUrl;
     }
 
-    public void addTeam(Team team) {
-        boolean exists = this.teams.stream()
-                .anyMatch(t -> t.getId().equals(team.getId()));
 
+    public void addTeam(Team team) {
         if (teams.size() >= MAX_TEAMS) {
             throw new IllegalStateException(
                     "Championship already has maximum number of teams: " + MAX_TEAMS
             );
         }
 
-
-        if (exists) {
+        if (!teams.contains(team)) {
+            this.teams.add(team);
+        } else {
             throw new IllegalStateException("Team already registered in championship: " + team.getName());
         }
-
-        int sizeAfterAdd = teams.size() + 1;
-
-/*
-        if (sizeAfterAdd % 2 != 0) {
-            throw new IllegalStateException(
-                    "Number of teams in a championship must be even"
-            );
-        }
-*/
-
-        this.teams.add(team);
     }
 
     public void removeTeam(String teamId) {

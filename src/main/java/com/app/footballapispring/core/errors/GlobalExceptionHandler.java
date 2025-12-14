@@ -1,4 +1,4 @@
-package com.app.footballapispring.core.error;
+package com.app.footballapispring.core.errors;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

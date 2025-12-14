@@ -10,8 +10,8 @@ import com.app.footballapispring.football.domain.user.commands.AuthResult;
 import com.app.footballapispring.football.domain.user.commands.RegisterUserCommand;
 import lombok.AllArgsConstructor;
 
-import com.app.footballapispring.core.error.BusinessException;
-import com.app.footballapispring.core.error.exceptions.UserError;
+import com.app.footballapispring.core.errors.BusinessException;
+import com.app.footballapispring.core.errors.exceptions.UserError;
 
 @AllArgsConstructor
 public class RegisterUserUseCase implements CommandHandler<RegisterUserCommand, AuthResult> {

@@ -1,7 +1,7 @@
 package com.app.footballapispring.football.domain.user.usescases;
 
-import com.app.footballapispring.core.error.exceptions.UserError;
-import com.app.footballapispring.core.error.BusinessException;
+import com.app.footballapispring.core.errors.exceptions.UserError;
+import com.app.footballapispring.core.errors.BusinessException;
 import com.app.footballapispring.core.mediator.CommandHandler;
 import com.app.footballapispring.core.service.JwtService;
 import com.app.footballapispring.core.service.PasswordHasher;

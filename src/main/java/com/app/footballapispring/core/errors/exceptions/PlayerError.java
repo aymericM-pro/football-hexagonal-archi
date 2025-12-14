@@ -1,6 +1,6 @@
-package com.app.footballapispring.core.error.exceptions;
+package com.app.footballapispring.core.errors.exceptions;
 
-import com.app.footballapispring.core.error.BusinessError;
+import com.app.footballapispring.core.errors.BusinessError;
 
 public enum PlayerError implements BusinessError  {
     PLAYER_NOT_FOUND(404, "PLAYER_NOT_FOUND", "Player not found");

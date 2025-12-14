@@ -8,4 +8,5 @@ public interface ChampionshipRepository {
     Championship save(Championship championship);
     Optional<Championship> findById(String championshipId);
     List<Championship> findAll();
+    Optional<Championship> findByIdWithTeams(String championshipId);
 }

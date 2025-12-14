@@ -1,7 +1,7 @@
 package com.app.footballapispring.http.footballApi.rest;
 
-import com.app.footballapispring.core.error.FootballApiError;
-import com.app.footballapispring.core.error.FootballApiException;
+import com.app.footballapispring.core.errors.FootballApiError;
+import com.app.footballapispring.core.errors.FootballApiException;
 import okhttp3.*;
 import org.springframework.stereotype.Component;
 import com.fasterxml.jackson.databind.JsonNode;

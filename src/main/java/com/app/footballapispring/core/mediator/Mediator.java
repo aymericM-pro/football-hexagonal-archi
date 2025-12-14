@@ -16,15 +16,29 @@ public class Mediator {
             List<CommandHandler<?, ?>> commandHandlersList,
             List<QueryHandler<?, ?>> queryHandlersList
     ) {
-        // Construire la map basée sur la commande/querie manipulée
+
         for (CommandHandler<?, ?> handler : commandHandlersList) {
             Class<?> commandType = HandlerUtils.getCommandType(handler);
-            this.commandHandlers.put(commandType, handler);
+
+            if (commandHandlers.containsKey(commandType)) {
+                throw new IllegalStateException(
+                        "Multiple CommandHandlers found for command: " + commandType.getName()
+                );
+            }
+
+            commandHandlers.put(commandType, handler);
         }
 
         for (QueryHandler<?, ?> handler : queryHandlersList) {
             Class<?> queryType = HandlerUtils.getQueryType(handler);
-            this.queryHandlers.put(queryType, handler);
+
+            if (queryHandlers.containsKey(queryType)) {
+                throw new IllegalStateException(
+                        "Multiple QueryHandlers found for query: " + queryType.getName()
+                );
+            }
+
+            queryHandlers.put(queryType, handler);
         }
     }
 
@@ -33,8 +47,11 @@ public class Mediator {
         CommandHandler<C, R> handler =
                 (CommandHandler<C, R>) commandHandlers.get(command.getClass());
 
-        if (handler == null)
-            throw new IllegalArgumentException("No handler found for command: " + command.getClass());
+        if (handler == null) {
+            throw new IllegalArgumentException(
+                    "No CommandHandler found for command: " + command.getClass().getName()
+            );
+        }
 
         return handler.handle(command);
     }
@@ -44,8 +61,11 @@ public class Mediator {
         QueryHandler<Q, R> handler =
                 (QueryHandler<Q, R>) queryHandlers.get(query.getClass());
 
-        if (handler == null)
-            throw new IllegalArgumentException("No handler found for query: " + query.getClass());
+        if (handler == null) {
+            throw new IllegalArgumentException(
+                    "No QueryHandler found for query: " + query.getClass().getName()
+            );
+        }
 
         return handler.handle(query);
     }

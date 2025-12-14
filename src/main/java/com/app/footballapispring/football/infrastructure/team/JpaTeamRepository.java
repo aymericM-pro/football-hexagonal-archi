@@ -3,31 +3,30 @@ package com.app.footballapispring.football.infrastructure.team;
 import com.app.footballapispring.football.domain.player.Player;
 import com.app.footballapispring.football.domain.teams.Team;
 import com.app.footballapispring.football.domain.teams.TeamRepository;
+import com.app.footballapispring.football.infrastructure.championship.ChampionshipEntity;
+import com.app.footballapispring.football.infrastructure.championship.SpringDataChampionshipRepository;
 import com.app.footballapispring.football.infrastructure.player.PlayerEntity;
 import com.app.footballapispring.football.infrastructure.player.PlayerInfraMapper;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
 @Repository
+@AllArgsConstructor
 public class JpaTeamRepository implements TeamRepository {
     private final SpringDataTeamRepository repo;
+    private final SpringDataChampionshipRepository championshipJpaRepository;
 
-    public JpaTeamRepository(SpringDataTeamRepository repo) {
-        this.repo = repo;
-    }
 
     @Override
     public Team save(Team t) {
-        // Création pure → jamais de findById ici !
         TeamEntity entity = new TeamEntity();
-
         TeamInfraMapper.mapToEntity(t, entity);
-
         TeamEntity saved = repo.save(entity);
-
         return TeamInfraMapper.toDomainWithPlayer(saved);
     }
 
@@ -54,6 +53,31 @@ public class JpaTeamRepository implements TeamRepository {
         entity.addPlayer(pe);
         TeamEntity saved = repo.save(entity);
         return TeamInfraMapper.toDomainWithPlayer(saved);
+    }
+
+    @Override
+    @Transactional
+    public void addTeamToChampionship(String teamId, String championshipId) {
+
+        TeamEntity team = repo
+                .findById(UUID.fromString(teamId))
+                .orElseThrow(() ->
+                        new IllegalStateException("Team not found: " + teamId)
+                );
+
+        ChampionshipEntity championship = championshipJpaRepository
+                .findById(UUID.fromString(championshipId))
+                .orElseThrow(() ->
+                        new IllegalStateException("Championship not found: " + championshipId)
+                );
+
+        // Évite les doublons (important)
+        if (!team.getChampionships().contains(championship)) {
+            team.getChampionships().add(championship);
+        }
+
+        // Côté propriétaire => persistance de la relation
+        repo.save(team);
     }
 }
 

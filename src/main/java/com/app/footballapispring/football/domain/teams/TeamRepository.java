@@ -10,4 +10,5 @@ public interface TeamRepository {
     Optional<Team> findById(String id);
     List<Team> findAll();
     Team addPlayer(Team team, Player player);
+    void addTeamToChampionship(String teamId, String championshipId);
 }

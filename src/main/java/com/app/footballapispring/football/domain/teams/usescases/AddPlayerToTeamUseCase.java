@@ -1,7 +1,7 @@
 package com.app.footballapispring.football.domain.teams.usescases;
 
-import com.app.footballapispring.core.error.BusinessException;
-import com.app.footballapispring.core.error.exceptions.TeamError;
+import com.app.footballapispring.core.errors.BusinessException;
+import com.app.footballapispring.core.errors.exceptions.TeamError;
 import com.app.footballapispring.core.mediator.CommandHandler;
 import com.app.footballapispring.football.domain.player.Player;
 import com.app.footballapispring.football.domain.player.PlayerRepository;

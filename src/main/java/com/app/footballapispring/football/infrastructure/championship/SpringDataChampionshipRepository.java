@@ -9,6 +9,6 @@ import java.util.UUID;
 
 public interface SpringDataChampionshipRepository extends JpaRepository<ChampionshipEntity, UUID> {
 
-    @Query("Select c from ChampionshipEntity c left join fetch c.teams t where c.id = :id")
-    Optional<ChampionshipEntity> findByIdWithTeams(@Param("id") String id);
+    @Query("SELECT DISTINCT c FROM ChampionshipEntity c LEFT JOIN FETCH c.teams WHERE c.id = :id")
+    Optional<ChampionshipEntity> findByIdWithTeams(@Param("id") UUID id);
 }

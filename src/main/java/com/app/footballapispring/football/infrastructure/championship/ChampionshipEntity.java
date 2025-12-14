@@ -31,7 +31,7 @@ public class ChampionshipEntity {
     private ChampionshipType type;
     private String photo;
 
-    @OneToMany(mappedBy = "championship", cascade = CascadeType.ALL, orphanRemoval = true)
+    @ManyToMany(mappedBy = "championships", fetch = FetchType.LAZY)
     private List<TeamEntity> teams = new ArrayList<>();
 
     public ChampionshipEntity(String name,
