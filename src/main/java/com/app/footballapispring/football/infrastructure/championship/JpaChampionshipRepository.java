@@ -5,6 +5,7 @@ import com.app.footballapispring.football.domain.championship.ChampionshipReposi
 import com.app.footballapispring.football.infrastructure.team.JpaTeamRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -43,5 +44,27 @@ public class JpaChampionshipRepository implements ChampionshipRepository {
         return repository
                 .findByIdWithTeams(UUID.fromString(championshipId))
                 .map(ChampionshipMapper::toDomainWithTeams);
+    }
+
+    @Transactional
+    public Championship initializeCalendar(String championshipId) {
+        ChampionshipEntity entity = repository
+                .findByIdWithTeams(UUID.fromString(championshipId))
+                .orElseThrow();
+
+        Championship domain = ChampionshipMapper.toDomainWithTeams(entity);
+        domain.createRounddaysChampionship();
+        ChampionshipMapper.applyRoundDays(domain, entity);
+
+        return ChampionshipMapper.toDomainWithTeams(entity);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Optional<Championship> findByIdWithRoundDays(String championshipId) {
+
+        return repository
+                .findByIdWithRoundDays(UUID.fromString(championshipId))
+                .map(ChampionshipMapper::toDomainWithRoundDays);
     }
 }

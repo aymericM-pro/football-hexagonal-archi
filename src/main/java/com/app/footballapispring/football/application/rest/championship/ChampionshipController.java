@@ -7,6 +7,7 @@ import com.app.footballapispring.football.application.rest.teams.TeamMapper;
 import com.app.footballapispring.football.application.rest.teams.TeamResponse;
 import com.app.footballapispring.football.domain.championship.Championship;
 import com.app.footballapispring.football.domain.championship.command.*;
+import com.app.footballapispring.football.domain.championship.models.ChampionshipCalendarResult;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -90,4 +91,15 @@ public class ChampionshipController implements IChampionshipSwagger {
 
         return ResponseEntity.ok(teams);
     }
+
+    @Override
+    @GetMapping("/{id}/calendar")
+    public ResponseEntity<ChampionshipCalendarResult> getCalendar(
+            @PathVariable String id
+    ) {
+        return ResponseEntity.ok(
+                mediator.send(new GetChampionshipCalendarQuery(id))
+        );
+    }
+
 }

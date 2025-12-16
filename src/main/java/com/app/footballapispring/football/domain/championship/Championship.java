@@ -73,12 +73,6 @@ public class Championship {
     public void createRounddaysChampionship() {
         int teamCount = teams.size();
 
-        if (teamCount < 2 || teamCount % 2 != 0) {
-            throw new BusinessException(
-                    ChampionshipsError.TEAMS_NUMBER_MUST_BE_EVEN
-            );
-        }
-
         int roundsPerLeg = teamCount - 1;
         int matchesPerRound = teamCount / 2;
 
@@ -90,7 +84,7 @@ public class Championship {
         // =========================
         for (int r = 0; r < roundsPerLeg; r++) {
 
-            RoundDay roundDay = new RoundDay(roundNumber++);
+            RoundDay roundDay = new RoundDay(null, roundNumber++);
 
             for (int i = 0; i < matchesPerRound; i++) {
                 Team home = rotation.get(i);
@@ -112,17 +106,16 @@ public class Championship {
         // =========================
         // ======== RETOUR =========
         // =========================
-        rotation = new ArrayList<>(teams); // reset rotation
+        rotation = new ArrayList<>(teams);
 
         for (int r = 0; r < roundsPerLeg; r++) {
 
-            RoundDay roundDay = new RoundDay(roundNumber++);
+            RoundDay roundDay = new RoundDay(null, roundNumber++);
 
             for (int i = 0; i < matchesPerRound; i++) {
                 Team home = rotation.get(i);
                 Team away = rotation.get(teamCount - 1 - i);
 
-                // INVERSION domicile / extérieur
                 roundDay.addFixture(new Fixture(
                         away.getId(),
                         home.getId(),
@@ -136,6 +129,7 @@ public class Championship {
             rotate(rotation);
         }
     }
+
 
     private void rotate(List<Team> teams) {
         Team last = teams.remove(teams.size() - 1);

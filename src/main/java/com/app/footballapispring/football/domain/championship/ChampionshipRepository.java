@@ -9,4 +9,6 @@ public interface ChampionshipRepository {
     Optional<Championship> findById(String championshipId);
     List<Championship> findAll();
     Optional<Championship> findByIdWithTeams(String championshipId);
+    Championship initializeCalendar(String championshipId);
+    Optional<Championship> findByIdWithRoundDays(String championshipId);
 }

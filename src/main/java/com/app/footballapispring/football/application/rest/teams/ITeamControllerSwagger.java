@@ -34,18 +34,6 @@ public interface ITeamControllerSwagger {
     @Operation(
             summary = "Créer une équipe",
             description = "Ajoute une nouvelle équipe à la base de données.",
-            parameters = {
-                    @Parameter(
-                            name = "name",
-                            description = "Nom de l'équipe",
-                            example = "Paris Saint-Germain"
-                    ),
-                    @Parameter(
-                            name = "country",
-                            description = "Pays de l'équipe",
-                            example = "France"
-                    )
-            },
             responses = {
                     @ApiResponse(
                             responseCode = "201",

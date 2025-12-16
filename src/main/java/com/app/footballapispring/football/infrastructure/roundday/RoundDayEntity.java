@@ -1,7 +1,9 @@
 package com.app.footballapispring.football.infrastructure.roundday;
 
+import com.app.footballapispring.football.infrastructure.championship.ChampionshipEntity;
 import com.app.footballapispring.football.infrastructure.fixture.FixtureEntity;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -22,11 +24,20 @@ public class RoundDayEntity {
     @Column(nullable = false)
     private int number;
 
-    @OneToMany(mappedBy = "roundDay", cascade = CascadeType.ALL, orphanRemoval = true)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "championship_id", nullable = false)
+    private ChampionshipEntity championship;
+
+    @OneToMany(
+            mappedBy = "roundDay",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
     private List<FixtureEntity> fixtures = new ArrayList<>();
 
-    public RoundDayEntity(int number) {
+    public RoundDayEntity(int number, ChampionshipEntity championship) {
         this.number = number;
+        this.championship = championship;
     }
 
     public void addFixture(FixtureEntity fixture) {

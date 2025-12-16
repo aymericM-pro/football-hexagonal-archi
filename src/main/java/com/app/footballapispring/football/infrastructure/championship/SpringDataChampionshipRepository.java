@@ -11,4 +11,7 @@ public interface SpringDataChampionshipRepository extends JpaRepository<Champion
 
     @Query("SELECT DISTINCT c FROM ChampionshipEntity c LEFT JOIN FETCH c.teams WHERE c.id = :id")
     Optional<ChampionshipEntity> findByIdWithTeams(@Param("id") UUID id);
+
+    @Query("SELECT DISTINCT c FROM ChampionshipEntity c LEFT JOIN FETCH c.roundDays rd WHERE c.id = :id")
+    Optional<ChampionshipEntity> findByIdWithRoundDays(@Param("id") UUID id);
 }

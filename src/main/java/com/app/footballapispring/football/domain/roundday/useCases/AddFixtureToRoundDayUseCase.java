@@ -8,17 +8,22 @@ import com.app.footballapispring.football.domain.roundday.commands.AddFixtureToR
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public class AddFixtureToRoundDayUseCase implements CommandHandler<AddFixtureToRoundDayCommand, Void> {
+public class AddFixtureToRoundDayUseCase
+        implements CommandHandler<AddFixtureToRoundDayCommand, Void> {
 
     private final RoundDayRepository repository;
 
     @Override
     public Void handle(AddFixtureToRoundDayCommand cmd) {
 
-        RoundDay rd = repository.findById(cmd.roundDayId())
-                .orElseThrow(() -> new IllegalArgumentException("RoundDay not found: " + cmd.roundDayId()));
+        RoundDay roundDay = repository.findById(cmd.roundDayId())
+                .orElseThrow(() ->
+                        new IllegalArgumentException(
+                                "RoundDay not found: " + cmd.roundDayId()
+                        )
+                );
 
-        Fixture f = new Fixture(
+        Fixture fixture = new Fixture(
                 cmd.homeTeamId(),
                 cmd.awayTeamId(),
                 cmd.homeScore(),
@@ -26,9 +31,12 @@ public class AddFixtureToRoundDayUseCase implements CommandHandler<AddFixtureToR
                 cmd.date()
         );
 
-        rd.addFixture(f);
+        roundDay.addFixture(fixture);
 
-        repository.save(rd);
+        repository.save(
+                roundDay,
+                cmd.championshipId()
+        );
 
         return null;
     }

@@ -3,6 +3,8 @@ package com.app.footballapispring.football.application.rest.rounddays;
 import com.app.footballapispring.core.mediator.Mediator;
 import com.app.footballapispring.football.application.rest.rounddays.request.AddFixtureRequest;
 import com.app.footballapispring.football.application.rest.rounddays.request.CreateRoundDayRequest;
+import com.app.footballapispring.football.domain.championship.command.GetChampionshipCalendarQuery;
+import com.app.footballapispring.football.domain.championship.models.ChampionshipCalendarResult;
 import com.app.footballapispring.football.domain.roundday.commands.*;
 import com.app.footballapispring.football.domain.roundday.models.RoundDayResult;
 import org.springframework.http.ResponseEntity;
@@ -20,19 +22,40 @@ public class RoundDayController implements IRoundDayControllerSwagger {
 
     @Override
     @PostMapping
-    public ResponseEntity<RoundDayResponse> create(@RequestBody CreateRoundDayRequest req) {
-        RoundDayResult result = mediator.send(new CreateRoundDayCommand(req.number()));
+    public ResponseEntity<RoundDayResponse> create(
+            @RequestBody CreateRoundDayRequest req
+    ) {
+        RoundDayResult result = mediator.send(
+                new CreateRoundDayCommand(
+                        req.championshipId(),
+                        req.number()
+                )
+        );
+
         return ResponseEntity.status(201).body(
-                new RoundDayResponse(result.id(), result.number(), java.util.List.of())
+                new RoundDayResponse(
+                        result.id(),
+                        result.number(),
+                        java.util.List.of()
+                )
         );
     }
 
     @Override
     @GetMapping("/{id}")
-    public ResponseEntity<RoundDayResponse> getById(@PathVariable String id) {
-        RoundDayResult rd = mediator.send(new GetRoundDayQuery(id));
+    public ResponseEntity<RoundDayResponse> getById(
+            @PathVariable String id
+    ) {
+        RoundDayResult rd = mediator.send(
+                new GetRoundDayQuery(id)
+        );
+
         return ResponseEntity.ok(
-                new RoundDayResponse(rd.id(), rd.number(), java.util.List.of())
+                new RoundDayResponse(
+                        rd.id(),
+                        rd.number(),
+                        java.util.List.of()
+                )
         );
     }
 
@@ -42,14 +65,17 @@ public class RoundDayController implements IRoundDayControllerSwagger {
             @PathVariable String id,
             @RequestBody AddFixtureRequest req
     ) {
-        mediator.send(new AddFixtureToRoundDayCommand(
-                id,
-                req.homeTeamId(),
-                req.awayTeamId(),
-                req.homeScore(),
-                req.awayScore(),
-                req.date()
-        ));
+        mediator.send(
+                new AddFixtureToRoundDayCommand(
+                        req.championshipId(),
+                        id,
+                        req.homeTeamId(),
+                        req.awayTeamId(),
+                        req.homeScore(),
+                        req.awayScore(),
+                        req.date()
+                )
+        );
 
         return ResponseEntity.noContent().build();
     }
@@ -57,10 +83,27 @@ public class RoundDayController implements IRoundDayControllerSwagger {
     @Override
     @DeleteMapping("/{dayId}/fixtures/{fixtureId}")
     public ResponseEntity<Void> removeFixture(
+            @PathVariable String championshipId,
             @PathVariable String dayId,
             @PathVariable String fixtureId
     ) {
-        mediator.send(new RemoveFixtureFromRoundDayCommand(dayId, fixtureId));
+        mediator.send(
+                new RemoveFixtureFromRoundDayCommand(
+                        championshipId,
+                        dayId,
+                        fixtureId
+                )
+        );
+
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/{id}/calendar")
+    public ResponseEntity<ChampionshipCalendarResult> getCalendar(
+            @PathVariable String id
+    ) {
+        return ResponseEntity.ok(
+                mediator.send(new GetChampionshipCalendarQuery(id))
+        );
     }
 }

@@ -29,4 +29,12 @@ public class Fixture {
         this.awayScore = awayScore;
         this.date = date;
     }
+
+    public void assignId(String id) {
+        if (this.id != null) {
+            throw new IllegalStateException("Fixture id already assigned");
+        }
+        this.id = id;
+    }
+
 }

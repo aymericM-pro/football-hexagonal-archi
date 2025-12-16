@@ -5,7 +5,7 @@ import java.util.Optional;
 
 public interface RoundDayRepository {
 
-    RoundDay save(RoundDay roundDay);
+    RoundDay save(RoundDay roundDay, String championshipId);
 
     Optional<RoundDay> findById(String id);
 

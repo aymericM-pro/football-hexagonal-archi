@@ -5,6 +5,7 @@ import com.app.footballapispring.core.mediator.Command;
 import java.time.LocalDateTime;
 
 public record AddFixtureToRoundDayCommand(
+        String championshipId,
         String roundDayId,
         String homeTeamId,
         String awayTeamId,

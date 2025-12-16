@@ -2,6 +2,7 @@ package com.app.footballapispring.football.infrastructure.championship;
 
 import com.app.footballapispring.core.models.Country;
 import com.app.footballapispring.football.domain.championship.ChampionshipType;
+import com.app.footballapispring.football.infrastructure.roundday.RoundDayEntity;
 import com.app.footballapispring.football.infrastructure.team.TeamEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -33,6 +34,13 @@ public class ChampionshipEntity {
 
     @ManyToMany(mappedBy = "championships", fetch = FetchType.LAZY)
     private List<TeamEntity> teams = new ArrayList<>();
+
+    @OneToMany(
+            mappedBy = "championship",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<RoundDayEntity> roundDays = new ArrayList<>();
 
     public ChampionshipEntity(String name,
                               String code,

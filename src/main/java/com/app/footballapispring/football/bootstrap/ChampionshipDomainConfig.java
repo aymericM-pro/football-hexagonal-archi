@@ -2,6 +2,7 @@ package com.app.footballapispring.football.bootstrap;
 
 import com.app.footballapispring.football.domain.championship.ChampionshipRepository;
 import com.app.footballapispring.football.domain.championship.usescases.*;
+import com.app.footballapispring.football.domain.championship.usescases.GetChampionshipCalendarUseCase;
 import com.app.footballapispring.football.domain.teams.TeamRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -32,6 +33,11 @@ public class ChampionshipDomainConfig {
     @Bean
     public GetTeamsOfChampionshipUseCase getTeamsOfChampionshipUseCases(ChampionshipRepository repository) {
         return new GetTeamsOfChampionshipUseCase(repository);
+    }
+
+    @Bean
+    public GetChampionshipCalendarUseCase getChampionshipCalendarUseCase(ChampionshipRepository repository) {
+        return new GetChampionshipCalendarUseCase(repository);
     }
 
 }

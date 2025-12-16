@@ -49,6 +49,23 @@ public class FixtureEntity {
         this.date = date;
     }
 
+    public FixtureEntity(
+            String homeTeamId,
+            String awayTeamId,
+            Integer homeScore,
+            Integer awayScore,
+            LocalDateTime date,
+            RoundDayEntity roundDay
+    ) {
+        this.homeTeamId = homeTeamId;
+        this.awayTeamId = awayTeamId;
+        this.homeScore = homeScore;
+        this.awayScore = awayScore;
+        this.date = date;
+        this.roundDay = roundDay;
+    }
+
+
 }
 
 

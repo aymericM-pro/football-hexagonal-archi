@@ -21,16 +21,12 @@ public class InitializeChampionshipCalendarUseCase
     @Override
     public Championship handle(InitializeChampionshipCalendarCommand cmd) {
 
-        Championship championship = championshipRepository
-                .findById(cmd.championshipId())
-                .orElseThrow(() ->
-                        new BusinessException(
-                                ChampionshipsError.CHAMPIONSHIP_NOT_FOUND
-                        )
-                );
+        if (championshipRepository.findById(cmd.championshipId()).isEmpty()) {
+            throw new BusinessException(
+                    ChampionshipsError.CHAMPIONSHIP_NOT_FOUND
+            );
+        }
 
-        championship.createRounddaysChampionship();
-
-        return championshipRepository.save(championship);
+        return championshipRepository.initializeCalendar(cmd.championshipId());
     }
 }

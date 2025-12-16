@@ -8,16 +8,23 @@ import com.app.footballapispring.football.domain.roundday.models.RoundDayResult;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public class CreateRoundDayUseCase implements CommandHandler<CreateRoundDayCommand, RoundDayResult> {
+public class CreateRoundDayUseCase
+        implements CommandHandler<CreateRoundDayCommand, RoundDayResult> {
 
     private final RoundDayRepository repository;
 
     @Override
     public RoundDayResult handle(CreateRoundDayCommand cmd) {
 
-        RoundDay day = new RoundDay(cmd.number());
+        RoundDay roundDay = new RoundDay(
+                null,
+                cmd.number()
+        );
 
-        RoundDay saved = repository.save(day);
+        RoundDay saved = repository.save(
+                roundDay,
+                cmd.championshipId()
+        );
 
         return new RoundDayResult(
                 saved.getId(),
