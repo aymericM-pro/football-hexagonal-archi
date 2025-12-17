@@ -1,5 +1,7 @@
 package com.app.footballapispring.football.domain.player.usescases;
 
+import com.app.footballapispring.core.errors.BusinessException;
+import com.app.footballapispring.core.errors.exceptions.PlayerError;
 import com.app.footballapispring.core.mediator.CommandHandler;
 import com.app.footballapispring.football.domain.player.Player;
 import com.app.footballapispring.football.domain.player.PlayerRepository;
@@ -16,7 +18,7 @@ public class UpdatePlayerUseCase implements CommandHandler<UpdatePlayerCommand, 
     @Override
     public Player handle(UpdatePlayerCommand c) {
         Player existing = repo.findById(c.id())
-                .orElseThrow(() -> new RuntimeException("Player not found"));
+                .orElseThrow(() -> new BusinessException(PlayerError.PLAYER_NOT_FOUND));
 
         Player updated = new Player(
                 existing.getId(),

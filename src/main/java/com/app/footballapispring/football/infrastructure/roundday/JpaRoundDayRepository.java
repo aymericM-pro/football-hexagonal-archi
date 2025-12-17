@@ -1,5 +1,7 @@
 package com.app.footballapispring.football.infrastructure.roundday;
 
+import com.app.footballapispring.core.errors.BusinessException;
+import com.app.footballapispring.core.errors.exceptions.ChampionshipsError;
 import com.app.footballapispring.football.domain.roundday.RoundDay;
 import com.app.footballapispring.football.domain.roundday.RoundDayRepository;
 import com.app.footballapispring.football.infrastructure.championship.ChampionshipEntity;
@@ -9,7 +11,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Repository
 public class JpaRoundDayRepository implements RoundDayRepository {
@@ -30,9 +31,7 @@ public class JpaRoundDayRepository implements RoundDayRepository {
 
         ChampionshipEntity championship = championshipJpa
                 .findById(UUID.fromString(championshipId))
-                .orElseThrow(() ->
-                        new IllegalStateException("Championship not found")
-                );
+                .orElseThrow(() -> new BusinessException(ChampionshipsError.CHAMPIONSHIP_NOT_FOUND));
 
         RoundDayEntity entity =
                 RoundDayMapper.toEntity(domain, championship);

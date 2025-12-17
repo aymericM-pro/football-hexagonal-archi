@@ -1,11 +1,10 @@
 package com.app.footballapispring.football.bootstrap;
 
 import com.app.footballapispring.football.domain.fixture.FixtureRepository;
-import com.app.footballapispring.football.domain.fixture.useCases.CreateFixtureUseCases;
-import com.app.footballapispring.football.domain.fixture.useCases.GetAllFixturesUseCase;
-import com.app.footballapispring.football.domain.fixture.useCases.GetFixtureByIdUseCase;
-import com.app.footballapispring.football.domain.fixture.useCases.UpdateFixtureUseCases;
-import com.app.footballapispring.football.domain.teams.commands.GetAllTeamsQuery;
+import com.app.footballapispring.football.domain.fixture.usecases.CreateFixtureUseCases;
+import com.app.footballapispring.football.domain.fixture.usecases.GetAllFixturesUseCase;
+import com.app.footballapispring.football.domain.fixture.usecases.GetFixtureByIdUseCase;
+import com.app.footballapispring.football.domain.fixture.usecases.UpdateFixtureUseCases;
 import com.app.footballapispring.http.footballApi.domain.fixtures.FixtureFetcher;
 import com.app.footballapispring.http.footballApi.domain.fixtures.GetFixturesUseCase;
 import org.springframework.context.annotation.Bean;

@@ -1,6 +1,8 @@
 package com.app.footballapispring.football.domain.teams.usescases;
 
 
+import com.app.footballapispring.core.errors.BusinessException;
+import com.app.footballapispring.core.errors.exceptions.TeamError;
 import com.app.footballapispring.core.mediator.QueryHandler;
 import com.app.footballapispring.football.domain.teams.Team;
 import com.app.footballapispring.football.domain.teams.TeamRepository;
@@ -17,7 +19,8 @@ public class GetTeamByIdUseCase implements QueryHandler<GetTeamByIdQuery, Team> 
     @Override
     public Team handle(GetTeamByIdQuery query) {
         return teamRepo.findById(query.id())
-                .orElseThrow(() -> new RuntimeException("Team not found"));
+                .orElseThrow(() -> new BusinessException(TeamError.TEAM_NOT_FOUND));
+
     }
 }
 

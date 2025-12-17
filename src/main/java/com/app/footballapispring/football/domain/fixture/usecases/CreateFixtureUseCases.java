@@ -1,4 +1,4 @@
-package com.app.footballapispring.football.domain.fixture.useCases;
+package com.app.footballapispring.football.domain.fixture.usecases;
 
 import com.app.footballapispring.core.mediator.CommandHandler;
 import com.app.footballapispring.football.domain.fixture.Fixture;

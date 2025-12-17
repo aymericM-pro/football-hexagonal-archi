@@ -1,5 +1,7 @@
 package com.app.footballapispring.football.infrastructure.championship;
 
+import com.app.footballapispring.core.errors.BusinessException;
+import com.app.footballapispring.core.errors.exceptions.ChampionshipsError;
 import com.app.footballapispring.football.domain.championship.Championship;
 import com.app.footballapispring.football.domain.championship.ChampionshipRepository;
 import com.app.footballapispring.football.infrastructure.team.JpaTeamRepository;
@@ -48,15 +50,14 @@ public class JpaChampionshipRepository implements ChampionshipRepository {
 
     @Transactional
     public Championship initializeCalendar(String championshipId) {
-        ChampionshipEntity entity = repository
-                .findByIdWithTeams(UUID.fromString(championshipId))
-                .orElseThrow();
+        ChampionshipEntity championship = repository
+                .findById(UUID.fromString(championshipId))
+                .orElseThrow(() -> new BusinessException(ChampionshipsError.CHAMPIONSHIP_NOT_FOUND));
 
-        Championship domain = ChampionshipMapper.toDomainWithTeams(entity);
+        Championship domain = ChampionshipMapper.toDomainWithTeams(championship);
         domain.createRounddaysChampionship();
-        ChampionshipMapper.applyRoundDays(domain, entity);
-
-        return ChampionshipMapper.toDomainWithTeams(entity);
+        ChampionshipMapper.applyRoundDays(domain, championship);
+        return ChampionshipMapper.toDomainWithTeams(championship);
     }
 
     @Override

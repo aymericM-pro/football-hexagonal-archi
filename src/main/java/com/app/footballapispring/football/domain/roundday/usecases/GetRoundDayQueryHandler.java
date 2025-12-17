@@ -1,4 +1,4 @@
-package com.app.footballapispring.football.domain.roundday.useCases;
+package com.app.footballapispring.football.domain.roundday.usecases;
 
 
 import com.app.footballapispring.core.mediator.QueryHandler;

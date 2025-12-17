@@ -1,4 +1,4 @@
-package com.app.footballapispring.football.domain.roundday.useCases;
+package com.app.footballapispring.football.domain.roundday.usecases;
 
 import com.app.footballapispring.core.mediator.CommandHandler;
 import com.app.footballapispring.football.domain.roundday.RoundDay;
@@ -17,11 +17,9 @@ public class RemoveFixtureFromRoundDayUseCase
     public Void handle(RemoveFixtureFromRoundDayCommand cmd) {
 
         RoundDay roundDay = repository.findById(cmd.roundDayId())
-                .orElseThrow(() ->
-                        new IllegalArgumentException(
-                                "RoundDay not found: " + cmd.roundDayId()
-                        )
-                );
+                .orElseThrow(() -> new IllegalArgumentException(
+                        "RoundDay not found: " + cmd.roundDayId()
+                ));
 
         roundDay.removeFixture(cmd.fixtureId());
 

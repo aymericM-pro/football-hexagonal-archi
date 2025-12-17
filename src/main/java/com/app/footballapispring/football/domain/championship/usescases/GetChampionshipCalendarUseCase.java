@@ -1,5 +1,7 @@
 package com.app.footballapispring.football.domain.championship.usescases;
 
+import com.app.footballapispring.core.errors.BusinessException;
+import com.app.footballapispring.core.errors.exceptions.ChampionshipsError;
 import com.app.footballapispring.core.mediator.QueryHandler;
 import com.app.footballapispring.football.domain.championship.Championship;
 import com.app.footballapispring.football.domain.championship.ChampionshipRepository;
@@ -29,7 +31,7 @@ public class GetChampionshipCalendarUseCase
 
         Championship championship = championshipRepository
                 .findByIdWithRoundDays(query.championshipId())
-                .orElseThrow();
+                .orElseThrow(() -> new BusinessException(ChampionshipsError.CHAMPIONSHIP_NOT_FOUND));
 
         Map<Integer, List<FixtureResult>> calendar =
                 championship.getRoundDays()

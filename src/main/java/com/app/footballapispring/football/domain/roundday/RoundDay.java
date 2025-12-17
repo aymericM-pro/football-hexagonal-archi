@@ -1,5 +1,7 @@
 package com.app.footballapispring.football.domain.roundday;
 
+import com.app.footballapispring.core.errors.BusinessException;
+import com.app.footballapispring.core.errors.exceptions.RoundDayError;
 import com.app.footballapispring.football.domain.fixture.Fixture;
 import lombok.Getter;
 
@@ -43,8 +45,6 @@ public class RoundDay {
             }
         }
 
-        throw new IllegalStateException(
-                "Fixture not found in RoundDay " + id + " with id=" + fixtureId
-        );
+        throw new BusinessException(RoundDayError.FIXTURE_NOT_IN_ROUND_DAY);
     }
 }

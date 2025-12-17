@@ -1,5 +1,8 @@
 package com.app.footballapispring.football.infrastructure.team;
 
+import com.app.footballapispring.core.errors.BusinessException;
+import com.app.footballapispring.core.errors.exceptions.ChampionshipsError;
+import com.app.footballapispring.core.errors.exceptions.TeamError;
 import com.app.footballapispring.football.domain.player.Player;
 import com.app.footballapispring.football.domain.teams.Team;
 import com.app.footballapispring.football.domain.teams.TeamRepository;
@@ -46,11 +49,16 @@ public class JpaTeamRepository implements TeamRepository {
 
     @Override
     public Team addPlayer(Team domainTeam, Player domainPlayer) {
+
         UUID id = UUID.fromString(domainTeam.getId());
+
         TeamEntity entity = repo.findByIdWithPlayers(id)
-                .orElseThrow(() -> new RuntimeException("Team not found"));
+                .orElseThrow(() -> new BusinessException(TeamError.TEAM_NOT_FOUND));
+
         PlayerEntity pe = PlayerInfraMapper.toEntity(domainPlayer);
+
         entity.addPlayer(pe);
+
         TeamEntity saved = repo.save(entity);
         return TeamInfraMapper.toDomainWithPlayer(saved);
     }
@@ -61,22 +69,16 @@ public class JpaTeamRepository implements TeamRepository {
 
         TeamEntity team = repo
                 .findById(UUID.fromString(teamId))
-                .orElseThrow(() ->
-                        new IllegalStateException("Team not found: " + teamId)
-                );
+                .orElseThrow(() -> new BusinessException(TeamError.TEAM_NOT_FOUND));
 
         ChampionshipEntity championship = championshipJpaRepository
                 .findById(UUID.fromString(championshipId))
-                .orElseThrow(() ->
-                        new IllegalStateException("Championship not found: " + championshipId)
-                );
+                .orElseThrow(() -> new BusinessException(ChampionshipsError.CHAMPIONSHIP_NOT_FOUND));
 
-        // Évite les doublons (important)
         if (!team.getChampionships().contains(championship)) {
             team.getChampionships().add(championship);
         }
 
-        // Côté propriétaire => persistance de la relation
         repo.save(team);
     }
 }

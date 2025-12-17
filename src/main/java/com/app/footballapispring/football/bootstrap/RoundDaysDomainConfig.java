@@ -1,10 +1,9 @@
 package com.app.footballapispring.football.bootstrap;
 
 import com.app.footballapispring.football.domain.roundday.RoundDayRepository;
-import com.app.footballapispring.football.domain.roundday.commands.GetRoundDayQuery;
-import com.app.footballapispring.football.domain.roundday.useCases.AddFixtureToRoundDayUseCase;
-import com.app.footballapispring.football.domain.roundday.useCases.CreateRoundDayUseCase;
-import com.app.footballapispring.football.domain.roundday.useCases.GetRoundDayQueryHandler;
+import com.app.footballapispring.football.domain.roundday.usecases.AddFixtureToRoundDayUseCase;
+import com.app.footballapispring.football.domain.roundday.usecases.CreateRoundDayUseCase;
+import com.app.footballapispring.football.domain.roundday.usecases.GetRoundDayQueryHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

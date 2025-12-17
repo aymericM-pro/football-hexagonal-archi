@@ -1,5 +1,7 @@
-package com.app.footballapispring.football.domain.fixture.useCases;
+package com.app.footballapispring.football.domain.fixture.usecases;
 
+import com.app.footballapispring.core.errors.BusinessException;
+import com.app.footballapispring.core.errors.exceptions.FixtureError;
 import com.app.footballapispring.core.mediator.CommandHandler;
 import com.app.footballapispring.football.domain.fixture.Fixture;
 import com.app.footballapispring.football.domain.fixture.FixtureRepository;
@@ -15,7 +17,7 @@ public class UpdateFixtureUseCases implements CommandHandler<UpdateFixtureComman
     public Fixture handle(UpdateFixtureCommand command) {
 
         Fixture existing = repository.findById(command.id())
-                .orElseThrow(() -> new RuntimeException("Fixture not found"));
+                .orElseThrow(() -> new BusinessException(FixtureError.FIXTURE_NOT_FOUND));
 
         Fixture updated = new Fixture(
                 existing.getId(),
