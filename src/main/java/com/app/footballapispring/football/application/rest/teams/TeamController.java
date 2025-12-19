@@ -6,6 +6,8 @@ import com.app.footballapispring.football.domain.teams.commands.AddPlayerToTeamC
 import com.app.footballapispring.football.domain.teams.commands.CreateTeamCommand;
 import com.app.footballapispring.football.domain.teams.commands.GetAllTeamsQuery;
 import com.app.footballapispring.football.domain.teams.commands.GetTeamByIdQuery;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,41 +21,44 @@ public class TeamController implements ITeamControllerSwagger {
     public TeamController(Mediator mediator) {
         this.mediator = mediator;
     }
-
     @Override
     @GetMapping
-    public List<TeamDTO> getAllTeams() {
-        return mediator.send(new GetAllTeamsQuery())
+    public ResponseEntity<List<TeamDTO>> getAllTeams() {
+        List<TeamDTO> teams = mediator.send(new GetAllTeamsQuery())
                 .stream()
                 .map(TeamMapper::toDto)
                 .toList();
+
+        return ResponseEntity.ok(teams);
     }
 
     @Override
     @PostMapping
-    public TeamDTO createTeam(@RequestBody CreateTeamDTO dto) {
+    public ResponseEntity<TeamDTO> createTeam(@RequestBody CreateTeamDTO dto) {
         Team team = mediator.send(new CreateTeamCommand(
                 dto.name(),
                 dto.country()
         ));
 
-        return TeamMapper.toDto(team);
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(TeamMapper.toDto(team));
     }
 
     @Override
     @PostMapping("/{teamId}/players/{playerId}")
-    public TeamDTO addPlayerToTeam(
+    public ResponseEntity<TeamDTO> addPlayerToTeam(
             @PathVariable String teamId,
             @PathVariable String playerId
     ) {
         Team updatedTeam = mediator.send(new AddPlayerToTeamCommand(teamId, playerId));
-        return TeamMapper.toDto(updatedTeam);
+        return ResponseEntity.ok(TeamMapper.toDto(updatedTeam));
     }
 
     @Override
     @GetMapping("/{teamId}")
-    public TeamInfoDTO getTeamById(@PathVariable String teamId) {
+    public ResponseEntity<TeamInfoDTO> getTeamById(@PathVariable String teamId) {
         Team team = mediator.send(new GetTeamByIdQuery(teamId));
-        return TeamInfoMapper.toDto(team);
+        return ResponseEntity.ok(TeamInfoMapper.toDto(team));
     }
 }

@@ -1,4 +1,4 @@
-package com.app.footballapispring.football.bootstrap.player;
+package com.app.footballapispring.football.bootstrap;
 
 import com.app.footballapispring.football.domain.player.GetPlayersUseCase;
 import com.app.footballapispring.football.domain.player.PlayerRepository;

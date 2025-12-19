@@ -2,6 +2,8 @@ package com.app.footballapispring.football.infrastructure.player;
 
 import com.app.footballapispring.football.domain.player.Player;
 import com.app.footballapispring.football.domain.player.PlayerRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -36,6 +38,12 @@ public class JpaPlayerRepository implements PlayerRepository {
                 .stream()
                 .map(PlayerInfraMapper::toDomain)
                 .toList();
+    }
+
+    @Override
+    public Page<Player> findAll(Pageable pageable) {
+        return repo.findAll(pageable)
+                .map(PlayerInfraMapper::toDomain);
     }
 
     @Override

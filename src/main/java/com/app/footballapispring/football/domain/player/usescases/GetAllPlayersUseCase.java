@@ -4,10 +4,12 @@ import com.app.footballapispring.core.mediator.QueryHandler;
 import com.app.footballapispring.football.domain.player.Player;
 import com.app.footballapispring.football.domain.player.PlayerRepository;
 import com.app.footballapispring.football.domain.player.command.GetAllPlayersQuery;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
-public class GetAllPlayersUseCase implements QueryHandler<GetAllPlayersQuery, List<Player>> {
+public class GetAllPlayersUseCase
+        implements QueryHandler<GetAllPlayersQuery, Page<Player>> {
 
     private final PlayerRepository repo;
 
@@ -16,7 +18,7 @@ public class GetAllPlayersUseCase implements QueryHandler<GetAllPlayersQuery, Li
     }
 
     @Override
-    public List<Player> handle(GetAllPlayersQuery q) {
-        return repo.findAll();
+    public Page<Player> handle(GetAllPlayersQuery query) {
+        return repo.findAll(query.pageable());
     }
 }

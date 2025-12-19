@@ -1,21 +1,21 @@
 package com.app.footballapispring.football.application.rest.player;
 
+import com.app.footballapispring.core.base.BaseResponse;
 import com.app.footballapispring.core.mediator.Mediator;
 import com.app.footballapispring.football.domain.player.Player;
-import com.app.footballapispring.football.domain.player.command.CreatePlayerCommand;
-import com.app.footballapispring.football.domain.player.command.DeletePlayerCommand;
-import com.app.footballapispring.football.domain.player.command.GetAllPlayersQuery;
-import com.app.footballapispring.football.domain.player.command.GetPlayerByIdQuery;
-import com.app.footballapispring.football.domain.player.command.UpdatePlayerCommand;
+import com.app.footballapispring.football.domain.player.command.*;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import com.app.footballapispring.core.base.PageResponse;
 
 @RestController
 @RequestMapping("/players")
-public class PlayerController implements IPlayerControllerSwagger {
+public class PlayerController {
 
     private final Mediator mediator;
 
@@ -23,60 +23,69 @@ public class PlayerController implements IPlayerControllerSwagger {
         this.mediator = mediator;
     }
 
-    @Override
     @GetMapping
-    public ResponseEntity<List<PlayerDTO>> getAllPlayers() {
-        List<PlayerDTO> result = mediator.send(new GetAllPlayersQuery())
-                .stream()
-                .map(PlayerMapper::toDto)
-                .toList();
+    public ResponseEntity<PageResponse<PlayerDTO>> getAllPlayers(
+            @PageableDefault(size = 20, sort = "name")
+            Pageable pageable
+    ) {
+        Page<Player> page =
+                mediator.send(new GetAllPlayersQuery(pageable));
 
-        return ResponseEntity.ok(result);
+        return ResponseEntity.ok(
+                PageResponse.from(page.map(PlayerMapper::toDto))
+        );
     }
 
-    @Override
     @GetMapping("/{id}")
-    public ResponseEntity<PlayerDTO> getPlayerById(@PathVariable String id) {
-        Player p = mediator.send(new GetPlayerByIdQuery(id));
-        return ResponseEntity.ok(PlayerMapper.toDto(p));
+    public ResponseEntity<PlayerDTO> getPlayerById(
+            @PathVariable String id
+    ) {
+        Player player = mediator.send(new GetPlayerByIdQuery(id));
+        return ResponseEntity.ok(PlayerMapper.toDto(player));
     }
 
-    @Override
     @PostMapping
-    public ResponseEntity<PlayerDTO> createPlayer(@RequestBody CreatePlayerDTO dto) {
-        Player p = mediator.send(new CreatePlayerCommand(
-                dto.name(),
-                dto.age(),
-                dto.position(),
-                dto.nationality(),
-                dto.photo()
-        ));
+    public ResponseEntity<PlayerDTO> createPlayer(
+            @RequestBody CreatePlayerDTO dto
+    ) {
+        Player created = mediator.send(
+                new CreatePlayerCommand(
+                        dto.name(),
+                        dto.age(),
+                        dto.position(),
+                        dto.nationality(),
+                        dto.photo()
+                )
+        );
 
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(PlayerMapper.toDto(p));
+                .body(PlayerMapper.toDto(created));
     }
 
-    @Override
     @PutMapping("/{id}")
     public ResponseEntity<PlayerDTO> updatePlayer(
             @PathVariable String id,
             @RequestBody PlayerDTO dto
     ) {
-        Player p = mediator.send(new UpdatePlayerCommand(
-                id,
-                dto.name(),
-                dto.age(),
-                dto.position(),
-                dto.nationality(),
-                dto.photo()
-        ));
-        return ResponseEntity.ok(PlayerMapper.toDto(p));
+        Player updated = mediator.send(
+                new UpdatePlayerCommand(
+                        id,
+                        dto.name(),
+                        dto.age(),
+                        dto.position(),
+                        dto.nationality(),
+                        dto.photo()
+                )
+        );
+
+        return ResponseEntity.ok(PlayerMapper.toDto(updated));
     }
 
-    @Override
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletePlayer(@PathVariable String id) {
+    public ResponseEntity<Void> deletePlayer(
+            @PathVariable String id
+    ) {
         mediator.send(new DeletePlayerCommand(id));
         return ResponseEntity.noContent().build();
     }
