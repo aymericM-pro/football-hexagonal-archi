@@ -11,7 +11,7 @@ class JwtTokenProviderTest {
     private JwtTokenProvider jwtTokenProvider;
 
     private static final String SECRET =
-            "my-super-secret-key-my-super-secret-key"; // >= 256 bits
+            "my-super-secret-key-my-super-secret-key";
     private static final long EXPIRATION_MS = 60_000; // 1 minute
 
     @BeforeEach

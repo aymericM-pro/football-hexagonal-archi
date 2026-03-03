@@ -5,13 +5,15 @@ import com.app.footballapispring.football.application.rest.users.dtos.UserRespon
 import com.app.footballapispring.football.domain.user.UserRepository;
 import com.app.footballapispring.football.domain.user.commands.GetAllUsersQuery;
 import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 @AllArgsConstructor
 public class GetAllUsersUseCase implements QueryHandler<GetAllUsersQuery, List<UserResponse>> {
 
-     private final UserRepository userRepository;
+    private final UserRepository userRepository;
 
     @Override
     public List<UserResponse> handle(GetAllUsersQuery query) {

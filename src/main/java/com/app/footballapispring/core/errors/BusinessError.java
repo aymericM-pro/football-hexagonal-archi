@@ -1,7 +1,9 @@
 package com.app.footballapispring.core.errors;
 
+import org.springframework.http.HttpStatus;
+
 public interface BusinessError {
-    int getHttpStatus();
+    HttpStatus getHttpStatus();
     String getCode();
     String getMessage();
 }

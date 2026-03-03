@@ -1,6 +1,6 @@
 package com.app.footballapispring.http.footballApi.infrastructure.fixture;
 
-import com.app.footballapispring.http.footballApi.rest.OkHttp3Helper;
+import com.app.footballapispring.http.footballApi.rest.FootballApiClient;
 import com.app.footballapispring.http.footballApi.domain.fixtures.Fixture;
 import com.app.footballapispring.http.footballApi.domain.fixtures.FixtureFetcher;
 import org.springframework.stereotype.Component;
@@ -14,9 +14,9 @@ import java.util.stream.StreamSupport;
 @Component
 public class FixturesApiAdapter implements FixtureFetcher {
 
-    private final OkHttp3Helper helper;
+    private final FootballApiClient helper;
 
-    public FixturesApiAdapter(OkHttp3Helper helper) {
+    public FixturesApiAdapter(FootballApiClient helper) {
         this.helper = helper;
     }
 

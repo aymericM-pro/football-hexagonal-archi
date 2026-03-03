@@ -2,10 +2,11 @@ package com.app.footballapispring.http.footballApi.rest;
 
 import com.app.footballapispring.core.errors.FootballApiError;
 import com.app.footballapispring.core.errors.FootballApiException;
-import okhttp3.*;
-import org.springframework.stereotype.Component;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import okhttp3.*;
+import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
@@ -25,14 +26,26 @@ public class FootballApiHttpClient {
 
         try (Response response = client.newCall(request).execute()) {
 
-            int status = response.code();
+            HttpStatus status = HttpStatus.resolve(response.code());
 
-            if (!response.isSuccessful()) {
-                FootballApiError error = FootballApiError.fromHttpStatus(status);
+            if (status == null || !status.is2xxSuccessful()) {
+
+                FootballApiError error = status != null
+                        ? FootballApiError.fromHttpStatus(status)
+                        : FootballApiError.INTERNAL_ERROR;
+
                 throw new FootballApiException(error);
             }
 
-            return mapper.readTree(response.body().string());
+            ResponseBody body = response.body();
+            if (body == null) {
+                throw new FootballApiException(
+                        FootballApiError.INTERNAL_ERROR,
+                        "Empty response body"
+                );
+            }
+
+            return mapper.readTree(body.string());
 
         } catch (IOException e) {
             throw new FootballApiException(

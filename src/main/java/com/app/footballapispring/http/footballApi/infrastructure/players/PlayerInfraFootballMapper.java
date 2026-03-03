@@ -1,27 +1,20 @@
 package com.app.footballapispring.http.footballApi.infrastructure.players;
 
-import com.app.footballapispring.football.domain.player.Player;
-import com.app.footballapispring.football.domain.player.models.Position;
+import com.app.footballapispring.http.footballApi.domain.players.Player;
 import com.fasterxml.jackson.databind.JsonNode;
-
 
 public class PlayerInfraFootballMapper {
 
     public static Player toDomain(JsonNode p) {
-
-        JsonNode playerNode = p.path("player");
-
-        String rawPosition = playerNode.path("position").asText("Unknown");
-
-        Position position = Position.fromApiValue(rawPosition);
-
+        JsonNode player = p.path("player");
+        JsonNode stats = p.path("statistics").get(0);
         return new Player(
-                playerNode.path("id").asText(),
-                playerNode.path("name").asText("Unknown"),
-                playerNode.path("age").asInt(-1),
-                position,
-                playerNode.path("nationality").asText("Unknown"),
-                playerNode.path("photo").asText("")
+                player.path("id").asText(null),
+                player.path("name").asText(null),
+                player.path("age").asInt(),
+                stats == null ? null : stats.path("games").path("position").asText(null),
+                player.path("nationality").asText(null),
+                player.path("photo").asText(null)
         );
     }
 }

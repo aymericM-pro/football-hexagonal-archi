@@ -40,15 +40,6 @@ public class JpaUserRepository implements UserRepository {
                 .toList();
     }
 
-    private User toDomain(UserEntity e) {
-        return new User(
-                e.getId().toString(),
-                e.getEmail(),
-                e.getPasswordHash(),
-                e.getRole()
-        );
-    }
-
     @Override
     public Optional<User> findByEmail(String email) {
         return repo.findByEmail(email)
@@ -58,5 +49,14 @@ public class JpaUserRepository implements UserRepository {
                         e.getPasswordHash(),
                         e.getRole()
                 ));
+    }
+
+    private User toDomain(UserEntity e) {
+        return new User(
+                e.getId().toString(),
+                e.getEmail(),
+                e.getPasswordHash(),
+                e.getRole()
+        );
     }
 }

@@ -1,6 +1,6 @@
 package com.app.footballapispring.http.footballApi.rest.teams;
 
-import com.app.footballapispring.football.domain.teams.TeamDetail;
+import com.app.footballapispring.http.footballApi.domain.teams.TeamDetail;
 
 public class TeamDetailMapper {
 

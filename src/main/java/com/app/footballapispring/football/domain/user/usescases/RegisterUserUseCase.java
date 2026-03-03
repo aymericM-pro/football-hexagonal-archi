@@ -1,5 +1,7 @@
 package com.app.footballapispring.football.domain.user.usescases;
 
+import com.app.footballapispring.core.errors.BusinessException;
+import com.app.footballapispring.core.errors.exceptions.UserError;
 import com.app.footballapispring.core.mediator.CommandHandler;
 import com.app.footballapispring.core.service.JwtService;
 import com.app.footballapispring.core.service.PasswordHasher;
@@ -9,10 +11,9 @@ import com.app.footballapispring.football.domain.user.UserRepository;
 import com.app.footballapispring.football.domain.user.commands.AuthResult;
 import com.app.footballapispring.football.domain.user.commands.RegisterUserCommand;
 import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Component;
 
-import com.app.footballapispring.core.errors.BusinessException;
-import com.app.footballapispring.core.errors.exceptions.UserError;
-
+@Component
 @AllArgsConstructor
 public class RegisterUserUseCase implements CommandHandler<RegisterUserCommand, AuthResult> {
 
@@ -22,7 +23,6 @@ public class RegisterUserUseCase implements CommandHandler<RegisterUserCommand, 
 
     @Override
     public AuthResult handle(RegisterUserCommand cmd) {
-
         if (cmd.email() == null || cmd.email().isBlank()) {
             throw new BusinessException(UserError.EMAIL_REQUIRED);
         }

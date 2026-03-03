@@ -1,7 +1,7 @@
 package com.app.footballapispring.football.domain.user.usescases;
 
-import com.app.footballapispring.core.errors.exceptions.UserError;
 import com.app.footballapispring.core.errors.BusinessException;
+import com.app.footballapispring.core.errors.exceptions.UserError;
 import com.app.footballapispring.core.mediator.CommandHandler;
 import com.app.footballapispring.core.service.JwtService;
 import com.app.footballapispring.core.service.PasswordHasher;
@@ -9,7 +9,9 @@ import com.app.footballapispring.football.domain.user.UserRepository;
 import com.app.footballapispring.football.domain.user.commands.AuthResult;
 import com.app.footballapispring.football.domain.user.commands.LoginUserCommand;
 import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Component;
 
+@Component
 @AllArgsConstructor
 public class LoginUserUseCase implements CommandHandler<LoginUserCommand, AuthResult> {
 
@@ -19,7 +21,6 @@ public class LoginUserUseCase implements CommandHandler<LoginUserCommand, AuthRe
 
     @Override
     public AuthResult handle(LoginUserCommand cmd) {
-
         var user = userRepository.findByEmail(cmd.email())
                 .orElseThrow(() -> new BusinessException(UserError.USER_NOT_FOUND));
 

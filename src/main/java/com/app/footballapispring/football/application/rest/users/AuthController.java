@@ -1,9 +1,9 @@
 package com.app.footballapispring.football.application.rest.users;
 
+import com.app.footballapispring.core.mediator.Mediator;
 import com.app.footballapispring.football.application.rest.users.dtos.AuthResponseDTO;
 import com.app.footballapispring.football.application.rest.users.dtos.LoginRequestDTO;
 import com.app.footballapispring.football.application.rest.users.dtos.RegisterRequestDTO;
-import com.app.footballapispring.core.mediator.Mediator;
 import com.app.footballapispring.football.domain.user.commands.AuthResult;
 import com.app.footballapispring.football.domain.user.commands.LoginUserCommand;
 import com.app.footballapispring.football.domain.user.commands.RegisterUserCommand;

@@ -30,3 +30,4 @@ football:
   api:
     key: ${FOOTBALL_API_KEY}
     base-url: ${FOOTBALL_API_BASE_URL}
+

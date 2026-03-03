@@ -1,6 +1,5 @@
 package com.app.footballapispring.football.infrastructure.users;
 
-
 import com.app.footballapispring.football.domain.user.Role;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -26,8 +25,7 @@ public class UserEntity {
     @Column(nullable = false)
     private Role role;
 
-    protected UserEntity() {
-    }
+    protected UserEntity() {}
 
     public UserEntity(String email, String passwordHash, Role role) {
         this.email = email;

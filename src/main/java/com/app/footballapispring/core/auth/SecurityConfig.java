@@ -28,8 +28,11 @@ public class SecurityConfig {
 
         http
                 .csrf(AbstractHttpConfigurer::disable)
+                .cors(cors -> {})
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
+                        .anyRequest().permitAll()
+                )/*
                         .requestMatchers(
                                 "/auth/**",
                                 "/api/v1/auth/**",
@@ -38,8 +41,7 @@ public class SecurityConfig {
                                 "/swagger-ui/**",
                                 "/actuator/health"
                         ).permitAll()
-                        .anyRequest().authenticated()
-                )
+*/
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();

@@ -49,8 +49,8 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                 );
 
                 SecurityContextHolder.getContext().setAuthentication(auth);
-            } catch (Exception ignored) {
-                // Token invalide -> laisser Spring gérer (401)
+            } catch (Exception e) {
+                logger.error("Failed to authenticate user with JWT: " + e.getMessage());
             }
         }
 

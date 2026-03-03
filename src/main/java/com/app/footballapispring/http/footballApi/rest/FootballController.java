@@ -2,8 +2,8 @@ package com.app.footballapispring.http.footballApi.rest;
 
 import com.app.footballapispring.http.footballApi.rest.fixture.FixtureDTO;
 import com.app.footballapispring.http.footballApi.rest.fixture.FixtureMapper;
-import com.app.footballapispring.football.application.rest.player.PlayerDTO;
-import com.app.footballapispring.football.application.rest.player.PlayerMapper;
+import com.app.footballapispring.http.footballApi.rest.players.PlayerDTO;
+import com.app.footballapispring.http.footballApi.rest.players.PlayerMapper;
 import com.app.footballapispring.http.footballApi.rest.standing.StandingDTO;
 import com.app.footballapispring.http.footballApi.rest.standing.StandingMapper;
 import com.app.footballapispring.http.footballApi.rest.teams.TeamDetailDTO;
@@ -11,9 +11,9 @@ import com.app.footballapispring.http.footballApi.rest.teams.TeamDetailMapper;
 
 import com.app.footballapispring.core.mediator.Mediator;
 import com.app.footballapispring.http.footballApi.domain.fixtures.GetFixturesQuery;
-import com.app.footballapispring.football.domain.player.GetPlayersQuery;
+import com.app.footballapispring.http.footballApi.domain.players.GetPlayersQuery;
 import com.app.footballapispring.http.footballApi.domain.standings.GetStandingsQuery;
-import com.app.footballapispring.football.domain.teams.GetTeamDetailsQuery;
+import com.app.footballapispring.http.footballApi.domain.teams.GetTeamDetailsQuery;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,9 +31,6 @@ public class FootballController implements IFootballControllerSwagger {
         this.mediator = mediator;
     }
 
-    // ------------------------
-    // 1) STANDINGS
-    // ------------------------
     @Override
     @GetMapping("/standings")
     public List<StandingDTO> getStandings(
@@ -46,9 +43,6 @@ public class FootballController implements IFootballControllerSwagger {
                 .toList();
     }
 
-    // ------------------------
-    // 2) MATCHES (Fixtures)
-    // ------------------------
     @Override
     @GetMapping("/matches")
     public List<FixtureDTO> getMatches(
@@ -62,9 +56,6 @@ public class FootballController implements IFootballControllerSwagger {
                 .toList();
     }
 
-    // ------------------------
-    // 3) PLAYERS
-    // ------------------------
     @Override
     @GetMapping("/players")
     public List<PlayerDTO> getPlayers(
@@ -78,9 +69,6 @@ public class FootballController implements IFootballControllerSwagger {
                 .toList();
     }
 
-    // ------------------------
-    // 4) TEAM DETAILS
-    // ------------------------
     @Override
     @GetMapping("/team")
     public TeamDetailDTO getTeamDetails(@RequestParam int id) {

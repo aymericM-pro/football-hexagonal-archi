@@ -44,8 +44,7 @@ public class Mediator {
 
     @SuppressWarnings("unchecked")
     public <R, C extends Command<R>> R send(C command) {
-        CommandHandler<C, R> handler =
-                (CommandHandler<C, R>) commandHandlers.get(command.getClass());
+        CommandHandler<C, R> handler = (CommandHandler<C, R>) commandHandlers.get(command.getClass());
 
         if (handler == null) {
             throw new IllegalArgumentException(
@@ -58,8 +57,7 @@ public class Mediator {
 
     @SuppressWarnings("unchecked")
     public <R, Q extends Query<R>> R send(Q query) {
-        QueryHandler<Q, R> handler =
-                (QueryHandler<Q, R>) queryHandlers.get(query.getClass());
+        QueryHandler<Q, R> handler = (QueryHandler<Q, R>) queryHandlers.get(query.getClass());
 
         if (handler == null) {
             throw new IllegalArgumentException(

@@ -1,6 +1,5 @@
 package com.app.footballapispring.football.application.rest.users;
 
-
 import com.app.footballapispring.football.application.rest.users.dtos.UserResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;

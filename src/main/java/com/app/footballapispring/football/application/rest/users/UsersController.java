@@ -1,6 +1,5 @@
 package com.app.footballapispring.football.application.rest.users;
 
-
 import com.app.footballapispring.core.mediator.Mediator;
 import com.app.footballapispring.football.application.rest.users.dtos.UserResponse;
 import com.app.footballapispring.football.domain.user.commands.GetAllUsersQuery;

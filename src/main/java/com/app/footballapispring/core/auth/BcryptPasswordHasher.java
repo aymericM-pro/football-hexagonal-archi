@@ -2,7 +2,9 @@ package com.app.footballapispring.core.auth;
 
 import com.app.footballapispring.core.service.PasswordHasher;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Component;
 
+@Component
 public class BcryptPasswordHasher implements PasswordHasher {
     private final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 

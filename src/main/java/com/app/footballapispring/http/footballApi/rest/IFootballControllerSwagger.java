@@ -1,7 +1,7 @@
 package com.app.footballapispring.http.footballApi.rest;
 
 import com.app.footballapispring.http.footballApi.rest.fixture.FixtureDTO;
-import com.app.footballapispring.football.application.rest.player.PlayerDTO;
+import com.app.footballapispring.http.footballApi.rest.players.PlayerDTO;
 import com.app.footballapispring.http.footballApi.rest.standing.StandingDTO;
 import com.app.footballapispring.http.footballApi.rest.teams.TeamDetailDTO;
 import io.swagger.v3.oas.annotations.Operation;

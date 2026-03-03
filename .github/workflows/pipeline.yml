@@ -95,6 +95,7 @@ jobs:
       - name: Build project for Sonar (required)
         run: mvn -B clean compile
 
+# test for linear coverage data
       - name: SonarCloud Scan
         run: |
           mvn -B sonar:sonar \

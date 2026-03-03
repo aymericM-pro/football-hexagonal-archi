@@ -5,4 +5,4 @@ import com.app.footballapispring.football.application.rest.users.dtos.UserRespon
 
 import java.util.List;
 
-public record GetAllUsersQuery() implements Query<List<UserResponse>> { }
+public record GetAllUsersQuery() implements Query<List<UserResponse>> {}
